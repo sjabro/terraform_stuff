@@ -12,6 +12,11 @@ variable "vpc_name" {
 
 resource "aws_vpc" "vpc" {
     cidr_block = var.vpc_cidr
+
+    tags = {
+      "Name" = var.vpc_name
+      "Usage" = "Morpheus Testing"
+    }
 }
 
 output "aws_vpc" {
