@@ -20,5 +20,5 @@ resource "aws_vpc" "vpc" {
 }
 
 output "vpc" {
-  value = aws_vpc.vpc
+  value = vpc.vpc
 }
