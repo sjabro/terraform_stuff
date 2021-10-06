@@ -9,7 +9,7 @@ variable "subnet_az" {
 }
 
 resource "aws_subnet" "subnet" {
-  vpc_id            = vpc.vpc.id
+  vpc_id            = aws_vpc.vpc.id
   # vpc_id = "<%=state.stateList.output.outputs.vpc_id.value%>"
   cidr_block        = var.subnet_cidr
   availability_zone = var.subnet_az
