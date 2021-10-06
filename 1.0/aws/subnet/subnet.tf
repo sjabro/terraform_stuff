@@ -9,7 +9,7 @@ variable "subnet_az" {
 }
 
 locals {
-  vpc_id = "<%=state.stateList.output.outputs.vpc_id.value.id%>"
+  vpc_id = "<%=state.stateList.output.outputs.aws_vpc.value.id%>"
 }
 resource "aws_subnet" "subnet" {
   # vpc_id            = aws_vpc.vpc.id
