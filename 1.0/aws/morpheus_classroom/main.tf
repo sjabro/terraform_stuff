@@ -107,47 +107,47 @@ module "iam_user" {
 # EC2 Module 
 ################################################################################
 
-module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 3.0"
+# module "ec2_instance" {
+#   source  = "terraform-aws-modules/ec2-instance/aws"
+#   version = "~> 3.0"
 
-  for_each = local.student_count
+#   for_each = local.student_count
 
-  name = "instance-${each.value}"
+#   name = "instance-${each.value}"
 
-  ami                    = local.amis[var.region]
-  instance_type          = "t2.micro"
-  vpc_security_group_ids = [module.security-group[each.key].security_group_id]
-  subnet_id              = module.vpc[each.key].public_subnets[0]
-  associate_public_ip_address = true
+#   ami                    = local.amis[var.region]
+#   instance_type          = "t2.micro"
+#   vpc_security_group_ids = [module.security-group[each.key].security_group_id]
+#   subnet_id              = module.vpc[each.key].public_subnets[0]
+#   associate_public_ip_address = true
 
-  tags = {
-    Terraform   = "true"
-    Environment = "training"
-    Student = each.value
-  }
-}
+#   tags = {
+#     Terraform   = "true"
+#     Environment = "training"
+#     Student = each.value
+#   }
+# }
 
-module "morpheus_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 3.0"
+# module "morpheus_instance" {
+#   source  = "terraform-aws-modules/ec2-instance/aws"
+#   version = "~> 3.0"
 
-  for_each = local.student_count
+#   for_each = local.student_count
 
-  name = "morpheus-${each.value}"
+#   name = "morpheus-${each.value}"
 
-  ami                    = local.amis[var.region]
-  instance_type          = "t2.large"
-  vpc_security_group_ids = [module.security-group[each.key].security_group_id]
-  subnet_id              = module.vpc[each.key].public_subnets[0]
-  associate_public_ip_address = true
+#   ami                    = local.amis[var.region]
+#   instance_type          = "t2.large"
+#   vpc_security_group_ids = [module.security-group[each.key].security_group_id]
+#   subnet_id              = module.vpc[each.key].public_subnets[0]
+#   associate_public_ip_address = true
   
-  tags = {
-    Terraform   = "true"
-    Environment = "training"
-    Student = each.value
-  }
-}
+#   tags = {
+#     Terraform   = "true"
+#     Environment = "training"
+#     Student = each.value
+#   }
+# }
 
 #########################################################
 # Data Objects
