@@ -141,13 +141,6 @@ module "morpheus_instance" {
   vpc_security_group_ids = [module.security-group[each.key].security_group_id]
   subnet_id              = module.vpc[each.key].public_subnets[0]
   associate_public_ip_address = true
-
-  # user_data = <<-EOF
-  #  #cloud-config
-  #  runcmd:
-  #  - <%=instance.cloudConfig.agentInstall%>
-  #  - <%=instance.cloudConfig.finalizeServer%>
-  #  EOF
   
   tags = {
     Terraform   = "true"
