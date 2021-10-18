@@ -10,13 +10,13 @@ variable "vpc_names" {
 }
 
 locals {
-  student_count = {for u in var.vpc_names: index(var.vpc_names, u) => u}
+  vpc_count = {for u in var.vpc_names: index(var.vpc_names, u) => u}
 }
 
 resource "aws_vpc" "vpc" {
     cidr_block = var.vpc_cidr
 
-    for_each = local.student_count
+    for_each = local.vpc_count
     tags = {
       "Name" = each.value
       "Usage" = "Morpheus Testing"

@@ -13,14 +13,14 @@ variable "vpc_names" {
 }
 
 locals {
-  student_count = {for u in var.vpc_names: index(var.vpc_names, u) => u}
+  vpc_count = {for u in var.vpc_names: index(var.vpc_names, u) => u}
   time = formatdate("MM-DD-YYYY", timestamp())
 }
 
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  for_each = local.vpc_names
+  for_each = local.vpc_count
   name = "${each.value}_${local.time}"
   cidr = var.vpc_root_cidr
 
