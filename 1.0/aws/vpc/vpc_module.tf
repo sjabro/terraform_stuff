@@ -22,7 +22,7 @@ module "vpc" {
 
   for_each = local.vpc_count
   name = "${each.value}_${local.time}"
-  cidr = var.vpc_root_cidr
+  cidr = var.vpc_cidr
 
   azs             = ["${var.region}a", "${var.region}b"]
   private_subnets = []
