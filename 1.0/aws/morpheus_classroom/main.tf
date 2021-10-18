@@ -19,7 +19,7 @@ module "vpc" {
   single_nat_gateway = false
 
   public_subnet_tags = {
-    Name = "${each.value}_subnet"
+    "Name" = "${each.value}_subnet"
   }
 
   tags = {
@@ -28,7 +28,7 @@ module "vpc" {
   }
 
   vpc_tags = {
-    Name = "${each.value}_${local.time}"
+    "Name" = "${each.value}_${local.time}"
   }
 }
 
