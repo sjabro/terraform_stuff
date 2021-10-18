@@ -9,7 +9,7 @@ resource "aws_vpc" "main" {
     cidr_block = "${cidrsubnet(var.vpc_root_cidr, 4, each.key)}"
 
     tags = {
-      Name = "${each.value}_${local.time}"
+      "Name" = "${each.value}_${local.time}"
     }
 }
 
@@ -22,7 +22,7 @@ resource "aws_internet_gateway" "main" {
     vpc_id = aws_vpc.main[each.key].id
 
     tags = {
-      Name = "${each.value}_${local.time}"
+      "Name" = "${each.value}_${local.time}"
     }
 
     depends_on = [
@@ -41,7 +41,7 @@ resource "aws_subnet" "main" {
     cidr_block = "${cidrsubnet(var.vpc_root_cidr, 4, each.key)}"
 
     tags = {
-      Name = "${each.value}_${local.time}"
+      "Name" = "${each.value}_${local.time}"
     }
 
     depends_on = [
@@ -58,7 +58,7 @@ resource "aws_security_group" "main" {
     name = "${each.value}_${local.time}"
 
     tags = {
-      Name = "${each.value}_${local.time}"
+      "Name" = "${each.value}_${local.time}"
     }
 
 }
