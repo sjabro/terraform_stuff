@@ -10,7 +10,7 @@ variable "vpc_names" {
 }
 
 locals {
-  student_count = {for u in var.students: index(var.students, u) => u}
+  student_count = {for u in var.vpc_names: index(var.vpc_names, u) => u}
 }
 
 resource "aws_vpc" "vpc" {
