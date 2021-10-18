@@ -11,7 +11,7 @@ module "vpc" {
 
   azs             = ["${var.region}a", "${var.region}b"]
   private_subnets = []
-  public_subnets  = ["${cidrsubnet(var.vpc_root_cidr, 4, each.key)}"]
+  public_subnets  = [cidrsubnet(var.vpc_root_cidr, 4, each.key)]
 
   enable_ipv6 = false
 
