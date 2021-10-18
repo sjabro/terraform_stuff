@@ -17,4 +17,4 @@ output "ec2_instance" {
 
 output "morpheus_instance" {
     value = module.morpheus_instance
-# }
+}
