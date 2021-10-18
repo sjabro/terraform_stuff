@@ -1,0 +1,180 @@
+################################################################################
+# VPC Module
+################################################################################
+
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  count = length(local.student_count)
+  name = "${local.student_count[count.index]}_${local.time}"
+  cidr = var.vpc_root_cidr
+
+  azs             = ["${var.region}a", "${var.region}b"]
+  private_subnets = []
+  public_subnets  = [cidrsubnet(var.vpc_root_cidr, 4, count.index)]
+
+  enable_ipv6 = false
+
+  enable_nat_gateway = false
+  single_nat_gateway = false
+
+  public_subnet_tags = {
+    "Name" = "${local.student_count[count.index]}_subnet"
+  }
+
+  tags = {
+    Deployed = local.time
+    Student = local.student_count[count.index]
+  }
+
+  vpc_tags = {
+    "Name" = "${local.student_count[count.index]}_${local.time}"
+  }
+}
+
+# ################################################################################
+# # Security Group Module 
+# ################################################################################
+
+# module "security-group" {
+#   source  = "terraform-aws-modules/security-group/aws"
+#   version = "4.4.0"
+  
+#   count = length(local.student_count)
+#   name = "${each.value}_${local.time}"
+#   description = "Security group built for Morpheus training classes"
+#   vpc_id = module.vpc[each.key].vpc_id
+
+#     egress_with_self = [
+#       {
+#         rule = "all-all"
+#       }
+#     ]
+
+#     ingress_with_cidr_blocks = [
+#     {
+#       from_port   = 1024
+#       to_port     = 25535
+#       protocol    = "tcp"
+#       description = "High Ports Allow In"
+#       cidr_blocks = "0.0.0.0/0"
+#     },
+#     {
+#       rule        = "https-443-tcp"
+#       cidr_blocks = "0.0.0.0/0"
+#       description = "Allow HTTPS in"
+#     },
+#     {
+#       rule        = "http-80-tcp"
+#       cidr_blocks = "0.0.0.0/0"
+#       description = "Allow HTTP in"
+#     },
+#     {
+#       rule        = "winrm-https-tcp"
+#       cidr_blocks = "0.0.0.0/0"
+#       description = "Allow WINRMs in"
+#     },
+#     {
+#       rule        = "winrm-http-tcp"
+#       cidr_blocks = "0.0.0.0/0"
+#       description = "Allow WINRM in"
+#     },
+#     {
+#       rule        = "ssh-tcp"
+#       cidr_blocks = "0.0.0.0/0"
+#       description = "Allow SSH in"
+#     }
+#   ]
+# }
+
+# ################################################################################
+# # IAM Module 
+# ################################################################################
+
+# module "iam_user" {
+#   source  = "terraform-aws-modules/iam/aws//modules/iam-user"
+#   version = "~> 4.3"
+
+#   count = length(local.student_count)
+#   name          = each.value
+#   force_destroy = true
+
+#   create_iam_user_login_profile = false
+#   create_iam_access_key         = true
+# }
+
+# ################################################################################
+# # EC2 Module 
+# ################################################################################
+
+# module "ec2_instance" {
+#   source  = "terraform-aws-modules/ec2-instance/aws"
+#   version = "~> 3.0"
+
+#   count = length(local.student_count)
+
+#   name = "instance-${each.value}"
+
+#   ami                    = local.amis[var.region]
+#   instance_type          = "t2.micro"
+#   vpc_security_group_ids = [module.security-group[each.key].security_group_id]
+#   subnet_id              = module.vpc[each.key].public_subnets[0]
+#   associate_public_ip_address = true
+
+#   tags = {
+#     Terraform   = "true"
+#     Environment = "training"
+#     Student = each.value
+#   }
+# }
+
+# module "morpheus_instance" {
+#   source  = "terraform-aws-modules/ec2-instance/aws"
+#   version = "~> 3.0"
+
+#   count = length(local.student_count)
+
+#   name = "morpheus-${each.value}"
+
+#   ami                    = local.amis[var.region]
+#   instance_type          = "t2.large"
+#   vpc_security_group_ids = [module.security-group[each.key].security_group_id]
+#   subnet_id              = module.vpc[each.key].public_subnets[0]
+#   associate_public_ip_address = true
+  
+#   tags = {
+#     Terraform   = "true"
+#     Environment = "training"
+#     Student = each.value
+#   }
+# }
+
+# #########################################################
+# # Data Objects
+# #########################################################
+
+# # Get the students group
+# data "aws_iam_group" "students" {
+#   group_name = "students"
+# }
+
+# # Get latest Amazon Linux 2 AMI
+# data "aws_ami" "amazon-linux-2" {
+#   most_recent = true
+#   owners      = ["amazon"]
+#   filter {
+#     name   = "name"
+#     values = ["amzn2-ami-hvm*"]
+#   }
+# }
+
+# #########################################################
+# # Resource Objects
+# #########################################################
+
+# resource "aws_iam_user_group_membership" "students" {
+
+#   count = length(local.student_count)
+#   user = each.value
+#   groups = [data.aws_iam_group.students.group_name]
+# }
