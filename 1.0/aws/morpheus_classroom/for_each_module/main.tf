@@ -7,7 +7,7 @@ module "vpc" {
 
   for_each = local.student_count
   name = each.value
-  cidr = var.vpc_root_cidr
+  cidr = cidrsubnet(var.vpc_root_cidr, 4, each.key)
 
   azs             = ["${var.region}a", "${var.region}b"]
   private_subnets = []
@@ -23,7 +23,6 @@ module "vpc" {
   }
 
   tags = {
-    Deployed = local.time
     Student = each.value
   }
 
