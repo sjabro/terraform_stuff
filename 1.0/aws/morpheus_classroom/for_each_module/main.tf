@@ -58,38 +58,47 @@ module "security-group" {
     ]
 
     ingress_with_cidr_blocks = [
-    {
-      from_port   = 1024
-      to_port     = 25535
-      protocol    = "tcp"
-      description = "High Ports Allow In"
+
+      
+      {
+      from_port = 0
+      to_port   = 0
+      protocol = "-1"
       cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      rule        = "https-443-tcp"
-      cidr_blocks = "0.0.0.0/0"
-      description = "Allow HTTPS in"
-    },
-    {
-      rule        = "http-80-tcp"
-      cidr_blocks = "0.0.0.0/0"
-      description = "Allow HTTP in"
-    },
-    {
-      rule        = "winrm-https-tcp"
-      cidr_blocks = "0.0.0.0/0"
-      description = "Allow WINRMs in"
-    },
-    {
-      rule        = "winrm-http-tcp"
-      cidr_blocks = "0.0.0.0/0"
-      description = "Allow WINRM in"
-    },
-    {
-      rule        = "ssh-tcp"
-      cidr_blocks = "0.0.0.0/0"
-      description = "Allow SSH in"
-    }
+      }
+
+      # {
+      #   from_port   = 1024
+      #   to_port     = 25535
+      #   protocol    = "tcp"
+      #   description = "High Ports Allow In"
+      #   cidr_blocks = "0.0.0.0/0"
+      # },
+      # {
+      #   rule        = "https-443-tcp"
+      #   cidr_blocks = "0.0.0.0/0"
+      #   description = "Allow HTTPS in"
+      # },
+      # {
+      #   rule        = "http-80-tcp"
+      #   cidr_blocks = "0.0.0.0/0"
+      #   description = "Allow HTTP in"
+      # },
+      # {
+      #   rule        = "winrm-https-tcp"
+      #   cidr_blocks = "0.0.0.0/0"
+      #   description = "Allow WINRMs in"
+      # },
+      # {
+      #   rule        = "winrm-http-tcp"
+      #   cidr_blocks = "0.0.0.0/0"
+      #   description = "Allow WINRM in"
+      # },
+      # {
+      #   rule        = "ssh-tcp"
+      #   cidr_blocks = "0.0.0.0/0"
+      #   description = "Allow SSH in"
+      # }
   ]
 }
 
