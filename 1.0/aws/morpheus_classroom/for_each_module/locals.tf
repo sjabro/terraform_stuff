@@ -1,6 +1,6 @@
 locals {
   student_count = {for u in var.students: index(var.students, u) => u}
-  time = "ilt"
+  time = "<%= new Date().format('M-d-yyyy')%>"
   amis = {
     "us-east-1" = "ami-09e67e426f25ce0d7"
     "us-east-2" = "ami-0443305dabd4be2bc"
