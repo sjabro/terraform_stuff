@@ -6,7 +6,7 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   for_each = local.student_count
-  name = "${each.value}_${local.time}"
+  name = each.value
   cidr = var.vpc_root_cidr
 
   azs             = ["${var.region}a", "${var.region}b"]
@@ -28,7 +28,7 @@ module "vpc" {
   }
 
   vpc_tags = {
-    "Name" = "${each.value}_${local.time}"
+    "Name" = each.value
   }
 }
 
@@ -40,8 +40,12 @@ module "security-group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
   
+  depends_on = [
+    module.vpc
+  ]
+
   for_each = local.student_count
-  name = "${each.value}_${local.time}"
+  name = each.value
   description = "Security group built for Morpheus training classes"
   vpc_id = module.vpc[each.key].vpc_id
 
@@ -111,6 +115,10 @@ module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
 
+  depends_on = [
+    module.vpc
+  ]
+
   for_each = local.student_count
 
   name = "instance-${each.value}"
@@ -131,6 +139,10 @@ module "ec2_instance" {
 module "morpheus_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 3.0"
+
+  depends_on = [
+    module.vpc
+  ]
 
   for_each = local.student_count
 
@@ -174,6 +186,11 @@ data "aws_ami" "amazon-linux-2" {
 
 resource "aws_iam_user_group_membership" "students" {
 
+  depends_on = [
+    module.iam_user,
+    data.aws_iam_group
+  ]
+  
   for_each = local.student_count
   user = each.value
   groups = [data.aws_iam_group.students.group_name]
