@@ -188,7 +188,7 @@ resource "aws_iam_user_group_membership" "students" {
 
   depends_on = [
     module.iam_user,
-    data.aws_iam_group
+    data.aws_iam_group.students
   ]
   
   for_each = local.student_count
