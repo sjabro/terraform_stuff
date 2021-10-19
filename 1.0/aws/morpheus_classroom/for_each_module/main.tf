@@ -154,6 +154,12 @@ module "morpheus_instance" {
   subnet_id              = module.vpc[each.key].public_subnets[0]
   associate_public_ip_address = true
   
+  user_data = <<-EOF
+   #cloud-config
+   runcmd:
+   - <%=instance.cloudConfig.agentInstall%>
+   - <%=instance.cloudConfig.finalizeServer%>
+   EOF
   tags = {
     Terraform   = "true"
     Environment = "training"
