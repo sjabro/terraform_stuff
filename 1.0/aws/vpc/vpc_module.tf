@@ -14,7 +14,7 @@ variable "vpc_names" {
 
 locals {
   vpc_count = {for u in var.vpc_names: index(var.vpc_names, u) => u}
-  time = formatdate("MM-DD-YYYY", timestamp())
+  time = "rightnow"
 }
 
 module "vpc" {
