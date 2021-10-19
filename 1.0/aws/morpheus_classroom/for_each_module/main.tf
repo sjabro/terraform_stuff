@@ -48,9 +48,12 @@ module "security-group" {
   description = "Security group built for Morpheus training classes"
   vpc_id = module.vpc[each.key].vpc_id
 
-    egress_with_self = [
+    egress = [
       {
-        rule = "all-all"
+      from_port = 0
+      to_port   = 0
+      protocol = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
       }
     ]
 
