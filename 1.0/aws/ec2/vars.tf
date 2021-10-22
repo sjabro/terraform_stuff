@@ -13,3 +13,12 @@ variable "access_key" {
 variable "secret_key" {
     type = string
 }
+
+variable "default_vpc_id" {
+    type = string
+}
+
+variable "default_subnet_id" {
+    type = string
+}
+
