@@ -13,5 +13,5 @@ resource "aws_instance" "main" {
 }
 
 output "aws_instance" {
-  value = aws_instance.ec2
+  value = aws_instance.main
 }
