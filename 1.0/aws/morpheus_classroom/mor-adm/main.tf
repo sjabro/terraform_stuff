@@ -139,7 +139,7 @@ module "ec2_instance" {
   key_name = aws_key_pair.trainer_key_pair.key_name
   name = "instance-${each.value}"
 
-  ami                    = local.system_options.ami
+  ami                    = local.system_options.
   instance_type          = "t2.micro"
   vpc_security_group_ids = [module.security-group[each.key].security_group_id]
   subnet_id              = module.vpc[each.key].public_subnets[0]
