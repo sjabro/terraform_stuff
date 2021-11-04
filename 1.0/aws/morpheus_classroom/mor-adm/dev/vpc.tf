@@ -11,18 +11,20 @@ variable "vpc_root_cidr" {
 ################################################################################
 
 resource "aws_vpc" "main" {
+  for_each = local.student_list
   cidr_block = var.vpc_root_cidr
 
   tags = {
-    "Name" = "Morpheus Platform VPC"
+    "Name" = "${each.value}-vpc"
   }
 }
 
 resource "aws_internet_gateway" "main" {
-  vpc_id = aws_vpc.main.id
+  for_each = local.student_list
+  vpc_id = aws_vpc.main[each.key].id
 
   tags = {
-    "Name" = "Morpheus Platform IGW"
+    "Name" = "${each.value}-igw"
   }
 
   depends_on = [
@@ -31,17 +33,19 @@ resource "aws_internet_gateway" "main" {
 }
 
 resource "aws_route_table" "main" {
-  vpc_id = aws_vpc.main.id
+  for_each = local.student_list
+  vpc_id = aws_vpc.main[each.key].id
 
   tags = {
-    "Name" = "Morpheus Platform Route Table"
+    "Name" = "${each.value}-rtb"
   }
 }
 
 resource "aws_route" "main" {
-  route_table_id = aws_route_table.main.id
+  for_each = local.student_list
+  route_table_id = aws_route_table.main[each.key].id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id = aws_internet_gateway.main.id
+  gateway_id = aws_internet_gateway.main[each.key].id
 
   depends_on = [
     aws_route_table.main
@@ -49,53 +53,23 @@ resource "aws_route" "main" {
 }
 
 resource "aws_route_table_association" "public_subnets" {
-  for_each = local.az_map
+  for_each = local.student_list
 
   subnet_id = aws_subnet.public_subnets[each.key].id
-  route_table_id = aws_route_table.main.id
+  route_table_id = aws_route_table.main[each.key].id
 }
 
 resource "aws_subnet" "public_subnets" {
-  for_each = local.az_map 
-  vpc_id = aws_vpc.main.id
-  availability_zone = each.value
-  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 4, each.key) 
+  for_each = local.student_list
+  vpc_id = aws_vpc.main[each.key].id
+  availability_zone = "${var.region}a"
+  cidr_block = var.vpc_root_cidr 
 
   tags = {
-    "Name" = "Morpheus Public Subnet: ${each.value}"
+    "Name" = "${each.value}-subnet"
   }
 
   depends_on = [
     aws_vpc.main
   ]
 }
-
-# resource "aws_subnet" "private_subnets" {
-#   for_each = local.az_map
-#   vpc_id = aws_vpc.main.id
-#   availability_zone = each.value 
-#   cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 4, each.key + 3)
-
-#     tags = {
-#     "Name" = "Morpheus Private Subnet: ${each.value}"
-#   }
-
-#   depends_on = [
-#     aws_vpc.main
-#   ]
-# }
-
-# resource "aws_subnet" "database_subnets" {
-#   for_each = local.az_map
-#   vpc_id = aws_vpc.main.id
-#   availability_zone = each.value
-#   cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 4, each.key + 6)
-
-#     tags = {
-#     "Name" = "Morpheus Database Subnet: ${each.value}"
-#   }
-
-#   depends_on = [
-#     aws_vpc.main
-#   ]
-# }

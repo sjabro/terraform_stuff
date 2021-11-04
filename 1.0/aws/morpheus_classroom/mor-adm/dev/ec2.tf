@@ -59,18 +59,18 @@ resource "aws_key_pair" "trainer_key_pair" {
 }
 
 resource "aws_network_interface" "app_nodes" {
-    for_each = local.az_map
+    for_each = local.student_list
     subnet_id = aws_subnet.public_subnets[each.key].id
 
-    security_groups = [ aws_security_group.app_nodes.id, aws_security_group.nfs.id ]
+    security_groups = [ aws_security_group.app_nodes[each.key].id]
 }
 
 resource "aws_instance" "app_node" {
-    for_each = local.az_map
+    for_each = local.student_list
 
     ami = local.system_options.ami
     instance_type = "t2.xlarge"
-    availability_zone = each.value
+    availability_zone = "${var.region}a"
 
     network_interface {
         network_interface_id = aws_network_interface.app_nodes[each.key].id
@@ -84,7 +84,7 @@ resource "aws_instance" "app_node" {
     key_name = aws_key_pair.trainer_key_pair.key_name
 
     tags = {
-      "Name" = "morph-app-0${each.key + 1}"
+      "Name" = "${each.value}-morpheus-app"
     }
 
     user_data = <<-EOF
@@ -93,19 +93,18 @@ resource "aws_instance" "app_node" {
    - <%=instance.cloudConfig.agentInstall%>
    - <%=instance.cloudConfig.finalizeServer%>
   EOF
-
+}
 resource "aws_eip" "app_nodes" {
-    for_each = local.az_map
+    for_each = local.student_list
 
     vpc = true
     instance = aws_instance.app_node[each.key].id
 }
 
 resource "aws_eip_association" "app_node_interfaces" {
-    for_each = local.az_map
+    for_each = local.student_list
 
     network_interface_id = aws_network_interface.app_nodes[each.key].id
     instance_id = aws_instance.app_node[each.key].id
     allocation_id = aws_eip.app_nodes[each.key].id
-
 }

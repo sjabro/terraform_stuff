@@ -32,9 +32,10 @@
 # }
 
 resource "aws_security_group" "app_nodes" {
+  for_each = local.student_list
   name = "Morpheus App Node Security Group"
   description = "Allows communication in for Morpheus app nodes"
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.main[each.key].id
 
   ingress = [ 
     {
@@ -72,7 +73,7 @@ resource "aws_security_group" "app_nodes" {
     self = false
   } ]
   tags = {
-    "Name" = "Morpheus App Node Security Group"
+    "Name" = "${each.value}-sg"
   }
 }
 
