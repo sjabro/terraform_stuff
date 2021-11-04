@@ -136,7 +136,7 @@ module "ec2_instance" {
   ]
 
   for_each = local.student_count
-
+  key_name = aws_key_pair.trainer_key_pair.key_name
   name = "instance-${each.value}"
 
   ami                    = local.amis[var.region]
@@ -163,6 +163,7 @@ module "morpheus_instance" {
   for_each = local.student_count
 
   name = "morpheus-${each.value}"
+  key_name = aws_key_pair.trainer_key_pair.key_name
 
   ami                    = local.amis[var.region]
   instance_type          = "t2.large"
