@@ -1,13 +1,31 @@
 locals {
   student_count = {for u in var.students: index(var.students, u) => u}
-  amis = {
-    "us-east-1" = "ami-09e67e426f25ce0d7"
-    "us-east-2" = "ami-0443305dabd4be2bc"
-    "us-west-1" = "ami-0d382e80be7ffdae5"
-    "us-west-2" = "ami-03d5c68bab01f3496"
-    "eu-central-1" = "ami-05f7491af5eef733a"
-    "eu-west-1" = "ami-0a8e758f5e873d1c1"
-    "eu-west-2" = "ami-0194c3e07668a7e36"
-    "eu-west-3" = "ami-0f7cd40eac2214b37"
+  system_options = {
+    "ami" = var.os == "ubuntu" ? data.aws_ami.ubuntu_2004_latest.id : data.aws_ami.amazon_linux_2_latest.id
+    "package_manager" =  var.os == "ubuntu" ? "apt-get" : "yum"
+    "nfs_tool" = var.os == "ubuntu" ? "nfs-common" : "nfs-utils"
+    "mysql_client" = var.os == "ubuntu" ? "mysql-client-core-8.0" : "mysql"  
   }
+}
+
+data "aws_ami" "amazon_linux_2_latest" {
+    most_recent = true
+    owners = ["amazon"]
+    filter {
+      name = "name"
+      values = ["amzn2-ami-hvm*"]
+    }
+}
+
+data "aws_ami" "ubuntu_2004_latest" {
+    most_recent = true
+    owners = ["099720109477"] # Canonical
+    filter {
+        name = "name"
+        values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    }
+    filter {
+        name = "virtualization-type"
+        values = ["hvm"]
+    }   
 }
