@@ -4,6 +4,7 @@
 variable "vpc_root_cidr" {
     type = string
     default = "172.30.0.0/24"
+    description = "This will be the CIDR assigned to your VPC AND your subnet."
 }
 
 ################################################################################

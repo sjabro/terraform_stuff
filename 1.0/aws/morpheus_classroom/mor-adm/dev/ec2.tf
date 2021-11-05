@@ -4,6 +4,7 @@
 variable "os" {
     type = string
     default = "ubuntu"
+    description = "Select the OS for the deployment. Allowed values are ubuntu & amazon_linux"
     validation {
       condition = anytrue([
           var.os == "ubuntu",
