@@ -90,8 +90,9 @@ resource "aws_instance" "app_node" {
     user_data = <<-EOF
    #cloud-config
    runcmd:
-   - <%=instance.cloudConfig.agentInstall%>
-   - <%=instance.cloudConfig.finalizeServer%>
+   - wget https://downloads.morpheusdata.com/files/morpheus-appliance_5.3.3-2_amd64.deb
+   - dpkg -i morpheus-appliance_5.3.3-2_amd64.deb
+   - morpheus-ctl reconfigure
   EOF
 }
 resource "aws_eip" "app_nodes" {
