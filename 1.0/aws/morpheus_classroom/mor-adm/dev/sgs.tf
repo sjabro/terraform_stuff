@@ -2,6 +2,7 @@
 # SG Vars
 ############################################################################
 
+# TODO get ssh ingress IP specific working
 variable "ssh_ingress_cidrs" {
     type = list(string)
     description = "CIDRs allowed to access this system over SSH"
