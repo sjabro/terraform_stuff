@@ -1,35 +1,12 @@
-# resource "aws_security_group" "rds-sg" {
-#   name = "Morpheus DB SG"
-#   description = "RDS communications"
-#   vpc_id = aws_vpc.main.id
+############################################################################
+# SG Vars
+############################################################################
 
-#   ingress = [ {
-#     cidr_blocks = [aws_vpc.main.cidr_block ]
-#     description = "Allow MYSql in"
-#     from_port = 3306
-#     to_port = 3306
-#     protocol = "tcp"
-#     ipv6_cidr_blocks = []
-#     prefix_list_ids = []
-#     security_groups = []
-#     self = false
-#   } ]
-#   egress = [ {
-#     cidr_blocks = [ "0.0.0.0/0" ]
-#     description = "Allow ALL Out"
-#     from_port = 0
-#     to_port = 0
-#     protocol = "-1"
-#     ipv6_cidr_blocks = []
-#     prefix_list_ids = []
-#     security_groups = []
-#     self = false
-#   } ]
-
-#   tags = {
-#     "Name" = "Morpheus DB SG"
-#   }
-# }
+variable "ssh_ingress_cidrs" {
+    type = list(string)
+    description = "CIDRs allowed to access this system over SSH"
+    default = ["0.0.0.0/0"]
+}
 
 resource "aws_security_group" "app_nodes" {
   for_each = local.student_list
@@ -50,7 +27,7 @@ resource "aws_security_group" "app_nodes" {
     self = false
     },
     {
-    cidr_blocks = [ "0.0.0.0/0" ]
+    cidr_blocks = var.ssh_ingress_cidrs
     description = "Allow SSH in"
     from_port = 22
     to_port = 22
@@ -76,70 +53,3 @@ resource "aws_security_group" "app_nodes" {
     "Name" = "${each.value}-sg"
   }
 }
-
-# resource "aws_security_group" "nfs" {
-#   name = "Morpheus NFS SG"
-#   description = "NFS communications"
-#   vpc_id = aws_vpc.main.id
-
-#   ingress = [ {
-#     cidr_blocks = [aws_vpc.main.cidr_block ]
-#     description = "Allow NFS"
-#     from_port = 111
-#     to_port = 111
-#     protocol = "tcp"
-#     ipv6_cidr_blocks = []
-#     prefix_list_ids = []
-#     security_groups = []
-#     self = false
-#   },
-#   {
-#     cidr_blocks = [aws_vpc.main.cidr_block ]
-#     description = "Allow NFS"
-#     from_port = 2049
-#     to_port = 2049
-#     protocol = "tcp"
-#     ipv6_cidr_blocks = []
-#     prefix_list_ids = []
-#     security_groups = []
-#     self = false
-#   },
-#   {
-#     cidr_blocks = [aws_vpc.main.cidr_block ]
-#     description = "Allow NFS"
-#     from_port = 111
-#     to_port = 111
-#     protocol = "udp"
-#     ipv6_cidr_blocks = []
-#     prefix_list_ids = []
-#     security_groups = []
-#     self = false
-#   },
-#   {
-#     cidr_blocks = [aws_vpc.main.cidr_block ]
-#     description = "Allow NFS"
-#     from_port = 2049
-#     to_port = 2049
-#     protocol = "udp"
-#     ipv6_cidr_blocks = []
-#     prefix_list_ids = []
-#     security_groups = []
-#     self = false
-#   }
-#   ]
-#   egress = [ {
-#     cidr_blocks = [ "0.0.0.0/0" ]
-#     description = "Allow ALL Out"
-#     from_port = 0
-#     to_port = 0
-#     protocol = "-1"
-#     ipv6_cidr_blocks = []
-#     prefix_list_ids = []
-#     security_groups = []
-#     self = false
-#   } ]
-
-#   tags = {
-#     "Name" = "Morpheus NFS SG"
-#   }   
-# }

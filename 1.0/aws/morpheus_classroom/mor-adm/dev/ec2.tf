@@ -19,6 +19,7 @@ variable "os" {
 locals {
     system_options = {
     "ami" = var.os == "ubuntu" ? data.aws_ami.ubuntu_2004_latest.id : data.aws_ami.amazon_linux_2_latest.id
+    "morph_install_command" = var.os == "ubuntu" ? "dpkg -i" : "rmp -ihv"
     "package_manager" =  var.os == "ubuntu" ? "apt-get" : "yum"
     "nfs_tool" = var.os == "ubuntu" ? "nfs-common" : "nfs-utils"
     "mysql_client" = var.os == "ubuntu" ? "mysql-client-core-8.0" : "mysql"  
@@ -69,7 +70,7 @@ resource "aws_instance" "app_node" {
     for_each = local.student_list
 
     ami = local.system_options.ami
-    instance_type = "t2.xlarge"
+    instance_type = "m4.large"
     availability_zone = "${var.region}a"
 
     network_interface {
@@ -90,8 +91,12 @@ resource "aws_instance" "app_node" {
     user_data = <<-EOF
    #cloud-config
    runcmd:
-   - wget https://downloads.morpheusdata.com/files/morpheus-appliance_5.3.3-2_amd64.deb
-   - dpkg -i morpheus-appliance_5.3.3-2_amd64.deb
+   - wget https://downloads.morpheusdata.com/files/morpheus-appliance_${var.morph_version}_amd64.deb
+   - ${local.system_options.morph_install_command} morpheus-appliance_${var.morph_version}_amd64.deb
+   - sleep 30
+   - sed -i '/^appliance_url/d' /etc/morpheus/morpheus.rb
+   - address="https://${aws_eip.app_nodes[each.key].public_ip}"
+   - echo "appliance_url '$address'" >> /etc/morpheus/morpheus.rb
    - morpheus-ctl reconfigure
   EOF
 }
@@ -99,7 +104,7 @@ resource "aws_eip" "app_nodes" {
     for_each = local.student_list
 
     vpc = true
-    instance = aws_instance.app_node[each.key].id
+    # instance = aws_instance.app_node[each.key].id
 }
 
 resource "aws_eip_association" "app_node_interfaces" {
