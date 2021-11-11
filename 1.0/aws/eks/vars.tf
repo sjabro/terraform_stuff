@@ -3,7 +3,7 @@ variable "region" {}
 
 variable "access_key" {}
 
-variable "secretaccess_key" {}
+variable "secret_key" {}
 
 ###VPC Variables (vpc.tf)###
 variable "cidr" {
