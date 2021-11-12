@@ -18,5 +18,5 @@ variable "students" {
 
 variable "morph_version" {
     type = string
-    default = "5.2.11-2"
+    default = "<%=customOptions.morpheusVersion%>"
 }
