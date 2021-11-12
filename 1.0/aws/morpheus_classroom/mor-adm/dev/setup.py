@@ -9,6 +9,7 @@ key=str(morpheus['results']['getMorphLicense'])
 instance = morpheus['instance']['containers']
 firstname = str("admin")
 emailid = str("sjabro@morpheusdata.com")
+admin_password = str(morpheus['customOptions']['morphApplianceAdminPass'])
 
 class morphAppliance(object):
     def __init__(self, app_name, app_ip, account_name, user_name, password, email, first_name, access_token, license_key):
@@ -60,7 +61,7 @@ for c in instance:
     student_email = str(c['server']['name'].split('-')[0])
     ip = str(c['externalIp'])
     
-    appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key, access_token="")
+    appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password=admin_password, email=student_email, first_name="admin", license_key=key, access_token="")
     
     ### Begin checking appliance status
     
@@ -96,3 +97,5 @@ for c in instance:
     
     print("Applying license...")
     license = appliance.applyLicense()
+    
+### END SCRIPT ###
