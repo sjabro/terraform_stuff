@@ -26,7 +26,7 @@ class morphAppliance(object):
         self.licence_key = license_key
     
     def applianceSetup(self):
-        url = str("https://%s" % (self.app_ip))
+        url = str("https://%s/api/setup/init" % (self.app_ip))
         headers={'Content-Type': 'application/json',"Accept":"application/json"}
         body={ "applianceName": self.app_name, "applianceUrl": url, "accountName": self.account_name, "username": self.user_name, "password": self.password, "email": self.email, "firstName": self.first_name }
         b = json.dumps(body)
