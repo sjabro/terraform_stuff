@@ -54,6 +54,7 @@ class morphAppliance(object):
         url = str("https://%s/ping" % (self.app_ip))
         headers={'Content-Type': 'application/json',"Accept":"application/json"}
         response = requests.get(url, headers=headers, verify=False)
+        return response.text
         
 for c in instance:
     student_email = str(c['server']['name'].split('-')[0])
@@ -64,9 +65,5 @@ for c in instance:
     
     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key, access_token="")
     
-    print(appliance.account_name)
-    print(appliance.app_name)
-    print(appliance.app_ip)
-    print(appliance.account_name)
-    print(appliance.email)
-    print(appliance.user_name)        
+    pingCheck = appliance.checkAppliancePing()
+    print(pingCheck)
