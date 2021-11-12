@@ -16,18 +16,17 @@ emailid = str("sjabro@morpheusdata.com")
 print(key)
 print(instance)
 
-# class morphAppliance(object):
-#     def __init__(self, app_name, app_ip, account_name, user_name, password, email, first_name, access_token, license_key):
-#         # super(morphAppliance, self).__init__(*args))
-#         self.app_name = app_name
-#         self.app_ip = app_ip
-#         self.account_name = account_name
-#         self.user_name = user_name
-#         self.password = password
-#         self.email = email
-#         self.first_name = first_name
-#         self.access_token = access_token
-#         self.licence_key = license_key
+class morphAppliance(object):
+    def __init__(self, app_name, app_ip, account_name, user_name, password, email, first_name, access_token, license_key):
+        self.app_name = app_name
+        self.app_ip = app_ip
+        self.account_name = account_name
+        self.user_name = user_name
+        self.password = password
+        self.email = email
+        self.first_name = first_name
+        self.access_token = access_token
+        self.licence_key = license_key
     
 #     def applianceSetup(self):
 #         url = str("https://%s" % (self.app_ip))
