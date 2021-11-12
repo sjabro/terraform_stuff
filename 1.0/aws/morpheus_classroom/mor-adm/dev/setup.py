@@ -62,7 +62,7 @@ for c in instance:
     print(student_email)
     print(ip)
     
-#     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key)
+    appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key, access_token="")
     
 #     print(appliance.account_name)
 #     print(appliance.app_name)
