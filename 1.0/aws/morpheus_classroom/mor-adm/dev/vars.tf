@@ -13,7 +13,7 @@ variable "secret_key" {
 variable "students" {
     type = list(string)
     description = "Comma separate list of student emails. (With quotes)"
-    default = ["sean.jabro@outlook.com","sjabro@morpheusdata.com"]
+    default = []
 }
 
 variable "morph_version" {
