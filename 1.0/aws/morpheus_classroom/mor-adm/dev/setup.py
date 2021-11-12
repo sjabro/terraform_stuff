@@ -75,12 +75,14 @@ for c in instance:
     pingCheck = appliance.checkAppliancePing()
     pingCount = 1
     
+    print("Beginning Morpheus ping check for appliance %s" % (ip))
+    
     while pingCheck != "MORPHEUS PING":
         print("Attempt: %s" % (pingCount))
         print("Morpheus appliance %s is not currently reachable. Sleeping for 5 minutes..." % (ip))
         time.sleep(300)
         pingCheck = appliance.checkAppliancePing()
-        pingCount + 1
+        pingCount = pingCount + 1
         
         if pingCount >= 6:
             print("Appliance is not up after 30 minutes. Please check in on its status at %s" % (ip))
@@ -94,7 +96,7 @@ for c in instance:
     setupStatus = appliance.checkApplianceSetupStatus()
     print(setupStatus)
     
-    if setupStatus == "True":
+    if setupStatus in [ 'True', 'true' ]:
         print("Begin setup attempt...")
         setup = appliance.applianceSetup()
     
