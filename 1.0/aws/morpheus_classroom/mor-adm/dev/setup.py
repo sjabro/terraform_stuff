@@ -94,7 +94,7 @@ for c in instance:
     setupStatus = appliance.checkApplianceSetupStatus()
     print(setupStatus)
     
-    if setupStatus == "true":
+    if setupStatus == "True":
         print("Begin setup attempt...")
         setup = appliance.applianceSetup()
     
