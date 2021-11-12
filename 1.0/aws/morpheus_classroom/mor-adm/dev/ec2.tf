@@ -86,7 +86,7 @@ resource "aws_instance" "app_node" {
     key_name = aws_key_pair.trainer_key_pair.key_name
 
     tags = {
-      "Name" = "${each.value}-morpheus-app"
+      "Name" = "${each.value}_morpheus-app"
     }
 
     user_data = <<-EOF
