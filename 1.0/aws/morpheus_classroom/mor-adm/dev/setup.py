@@ -92,6 +92,7 @@ for c in instance:
     
     print("Validating setup is needed")
     setupStatus = appliance.checkApplianceSetupStatus()
+    print(setupStatus)
     
     if setupStatus == "true":
         print("Begin setup attempt...")
