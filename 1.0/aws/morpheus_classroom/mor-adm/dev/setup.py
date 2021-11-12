@@ -63,7 +63,7 @@ class morphAppliance(object):
         return data["setupNeeded"]
 
 ### START SCRIPT ###
-    
+# TODO break out of the for statement since this is running independently
 for c in instance:
     student_email = str(c['server']['name'].split('-')[0])
     ip = str(c['externalIp'])
@@ -96,21 +96,22 @@ for c in instance:
     setupStatus = appliance.checkApplianceSetupStatus()
     print(setupStatus)
     
-    if setupStatus in [ 'True', 'true' ]:
-        print("Begin setup attempt...")
-        setup = appliance.applianceSetup()
+    # TODO Get the if statement working
+    # if setupStatus in [ 'True', 'true' ]:
+    print("Begin setup attempt...")
+    setup = appliance.applianceSetup()
+
+    ### Get access token
     
-        ### Get access token
-        
-        print("Acquiring access token...")
-        appliance.access_token = appliance.getApiToken()
+    print("Acquiring access token...")
+    appliance.access_token = appliance.getApiToken()
+
+    ### Apply License
     
-        ### Apply License
+    print("Applying license...")
+    license = appliance.applyLicense()
         
-        print("Applying license...")
-        license = appliance.applyLicense()
-        
-    else:
-        print("The appliance has already been through the setup process. Moving on.")
+    # else:
+    #     print("The appliance has already been through the setup process. Moving on.")
     
 ### END SCRIPT ###
