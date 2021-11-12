@@ -64,9 +64,9 @@ for c in instance:
     
     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key, access_token="")
     
-#     print(appliance.account_name)
-#     print(appliance.app_name)
-#     print(appliance.app_ip)
-#     print(appliance.account_name)
-#     print(appliance.email)
-#     print(appliance.user_name)        
+    print(appliance.account_name)
+    print(appliance.app_name)
+    print(appliance.app_ip)
+    print(appliance.account_name)
+    print(appliance.email)
+    print(appliance.user_name)        
