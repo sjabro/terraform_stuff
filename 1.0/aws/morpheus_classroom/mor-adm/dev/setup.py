@@ -13,9 +13,6 @@ instance = morpheus['instance']['containers']
 firstname = str("admin")
 emailid = str("sjabro@morpheusdata.com")
 
-print(key)
-print(instance)
-
 class morphAppliance(object):
     def __init__(self, app_name, app_ip, account_name, user_name, password, email, first_name, access_token, license_key):
         self.app_name = app_name
@@ -58,9 +55,12 @@ class morphAppliance(object):
         headers={'Content-Type': 'application/json',"Accept":"application/json"}
         response = requests.get(url, headers=headers, verify=False)
         
-# for c in instance:
-#     student_email = str(c['server']['name'].split('-')[0])
-#     ip = str(c['externalIp'])
+for c in instance:
+    student_email = str(c['server']['name'].split('-')[0])
+    ip = str(c['externalIp'])
+    
+    print(student_email)
+    print(ip)
     
 #     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key)
     
