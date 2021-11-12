@@ -1,9 +1,6 @@
 import json
 import requests
 import time
-### from morpheuscypher import Cypher
-### import os
-### import sys
 import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -85,12 +82,17 @@ for c in instance:
     ### Begin initial appliance setup
     
     setup = appliance.applianceSetup()
-    print(setup)
+    if setup.success == "True":
+        print("Initial setup successfull. Attempting to get access token")
+    else:
+        print("Something seems to have gone wrong during initial setup. Oh dang...")
     
     ### Get access token
     
+    print("Acquiring access token...")
     appliance.access_token = appliance.getApiToken()
     
     ### Apply License
     
+    print("Applying license...")
     license = appliance.applyLicense()
