@@ -54,6 +54,13 @@ class morphAppliance(object):
         headers={'Content-Type': 'application/json',"Accept":"application/json"}
         response = requests.get(url, headers=headers, verify=False)
         return response.text
+    
+    def checkApplianceSetupStatus(self):
+        url = str("https://%s/api/ping" % (self.app_ip))
+        headers={'Content-Type': 'application/json',"Accept":"application/json"}
+        response = requests.get(url, headers=headers, verify=False)
+        data = response.json()
+        return data["setupNeeded"]
 
 ### START SCRIPT ###
     
@@ -83,17 +90,24 @@ for c in instance:
     
     ### Begin initial appliance setup
     
-    print("Begin setup attempt...")
-    setup = appliance.applianceSetup()
+    print("Validating setup is needed")
+    setupStatus = appliance.checkApplianceSetupStatus()
     
-    ### Get access token
+    if setupStatus == "true":
+        print("Begin setup attempt...")
+        setup = appliance.applianceSetup()
     
-    print("Acquiring access token...")
-    appliance.access_token = appliance.getApiToken()
+        ### Get access token
+        
+        print("Acquiring access token...")
+        appliance.access_token = appliance.getApiToken()
     
-    ### Apply License
-    
-    print("Applying license...")
-    license = appliance.applyLicense()
+        ### Apply License
+        
+        print("Applying license...")
+        license = appliance.applyLicense()
+        
+    else:
+        print("The appliance has already been through the setup process. Moving on.")
     
 ### END SCRIPT ###
