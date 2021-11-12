@@ -1,6 +1,6 @@
 import json
 import requests
-### import time
+import time
 ### from morpheuscypher import Cypher
 ### import os
 ### import sys
@@ -55,15 +55,25 @@ class morphAppliance(object):
         headers={'Content-Type': 'application/json',"Accept":"application/json"}
         response = requests.get(url, headers=headers, verify=False)
         return response.text
-        
+
+### START SCRIPT ###
+    
 for c in instance:
     student_email = str(c['server']['name'].split('-')[0])
     ip = str(c['externalIp'])
     
-    print(student_email)
-    print(ip)
-    
     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key, access_token="")
     
     pingCheck = appliance.checkAppliancePing()
+    pingCount = 1
+    
+    while pingCheck != "MORPHEUS PING":
+        time.sleep(300)
+        pingCheck = appliance.checkAppliancePing()
+        pingCount + 1
+        
+        if pingCount >= 6:
+            print("Appliance is not up after 30 minutes. Please check in on its status at %s" % (ip))
+            break
+        
     print(pingCheck)
