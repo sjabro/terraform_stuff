@@ -64,10 +64,13 @@ for c in instance:
     
     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password="69F49!632b13e", email=student_email, first_name="admin", license_key=key, access_token="")
     
+    ### Begin checking appliance status
+    
     pingCheck = appliance.checkAppliancePing()
     pingCount = 1
     
     while pingCheck != "MORPHEUS PING":
+        print("Morpheus appliance is not currently reachable. Sleeping for 15 minutes...")
         time.sleep(300)
         pingCheck = appliance.checkAppliancePing()
         pingCount + 1
@@ -76,4 +79,17 @@ for c in instance:
             print("Appliance is not up after 30 minutes. Please check in on its status at %s" % (ip))
             break
         
-    print(pingCheck)
+    print("Morpheus ping responded. Attempting initial setup.")
+    
+    ### Begin initial appliance setup
+    
+    setup = appliance.applianceSetup()
+    print(setup)
+    
+    ### Get access token
+    
+    appliance.access_token = appliance.getApiToken()
+    
+    ### Apply License
+    
+    license = appliance.applyLicense()
