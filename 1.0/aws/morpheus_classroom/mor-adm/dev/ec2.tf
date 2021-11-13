@@ -3,15 +3,16 @@
 ######################################################################################
 variable "os" {
     type = string
-    default = "ubuntu"
+    # default = "ubuntu"
+    default = "<%=customOptions.awsOsOption%>"
     description = "Select the OS for the deployment. Allowed values are ubuntu & amazon_linux"
-    validation {
-      condition = anytrue([
-          var.os == "ubuntu",
-          var.os == "amazon_linux"
-      ])
-      error_message = "Must be a valid OS. Valid options are ubuntu or amazon_linux."
-    }
+    # validation {
+    #   condition = anytrue([
+    #       var.os == "ubuntu",
+    #       var.os == "amazon_linux"
+    #   ])
+    #   error_message = "Must be a valid OS. Valid options are ubuntu or amazon_linux."
+    # }
 }
 
 ######################################################################################
