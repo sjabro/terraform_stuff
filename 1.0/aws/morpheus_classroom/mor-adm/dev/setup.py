@@ -6,7 +6,8 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 key=str(morpheus['results']['getMorphLicense'])
-instance = morpheus['instance']['containers']
+# instance = morpheus['instance']['containers']
+server = morpheus['server']
 firstname = str("admin")
 emailid = str("sjabro@morpheusdata.com")
 admin_password = str(morpheus['customOptions']['morphApplianceAdminPass'])
@@ -64,54 +65,54 @@ class morphAppliance(object):
 
 ### START SCRIPT ###
 # TODO break out of the for statement since this is running independently
-for c in instance:
-    student_email = str(c['server']['name'].split('-')[0])
-    ip = str(c['externalIp'])
-    
-    appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password=admin_password, email=student_email, first_name="admin", license_key=key, access_token="")
-    
-    ### Begin checking appliance status
-    
+
+student_email = str(server['name'].split('_')[0])
+ip = str(server['externalIp'])
+
+appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password=admin_password, email=student_email, first_name="admin", license_key=key, access_token="")
+
+### Begin checking appliance status
+
+pingCheck = appliance.checkAppliancePing()
+pingCount = 1
+
+print("Beginning Morpheus ping check for appliance %s" % (ip))
+
+while pingCheck != "MORPHEUS PING":
+    print("Attempt: %s" % (pingCount))
+    print("Morpheus appliance %s is not currently reachable. Sleeping for 5 minutes..." % (ip))
+    time.sleep(300)
     pingCheck = appliance.checkAppliancePing()
-    pingCount = 1
+    pingCount = pingCount + 1
     
-    print("Beginning Morpheus ping check for appliance %s" % (ip))
+    if pingCount >= 6:
+        print("Appliance is not up after 30 minutes. Please check in on its status at %s" % (ip))
+        break
     
-    while pingCheck != "MORPHEUS PING":
-        print("Attempt: %s" % (pingCount))
-        print("Morpheus appliance %s is not currently reachable. Sleeping for 5 minutes..." % (ip))
-        time.sleep(300)
-        pingCheck = appliance.checkAppliancePing()
-        pingCount = pingCount + 1
-        
-        if pingCount >= 6:
-            print("Appliance is not up after 30 minutes. Please check in on its status at %s" % (ip))
-            break
-        
-    print("Morpheus ping responded.")
-    
-    ### Begin initial appliance setup
-    
-    print("Validating setup is needed")
-    setupStatus = appliance.checkApplianceSetupStatus()
-    print(setupStatus)
-    
-    # TODO Get the if statement working
-    # if setupStatus in [ 'True', 'true' ]:
-    print("Begin setup attempt...")
-    setup = appliance.applianceSetup()
+print("Morpheus ping responded.")
 
-    ### Get access token
-    
-    print("Acquiring access token...")
-    appliance.access_token = appliance.getApiToken()
+### Begin initial appliance setup
 
-    ### Apply License
+print("Validating setup is needed")
+setupStatus = appliance.checkApplianceSetupStatus()
+print(setupStatus)
+
+# TODO Get the if statement working
+# if setupStatus in [ 'True', 'true' ]:
+print("Begin setup attempt...")
+setup = appliance.applianceSetup()
+
+### Get access token
+
+print("Acquiring access token...")
+appliance.access_token = appliance.getApiToken()
+
+### Apply License
+
+print("Applying license...")
+license = appliance.applyLicense()
     
-    print("Applying license...")
-    license = appliance.applyLicense()
-        
-    # else:
-    #     print("The appliance has already been through the setup process. Moving on.")
+# else:
+#     print("The appliance has already been through the setup process. Moving on.")
     
 ### END SCRIPT ###
