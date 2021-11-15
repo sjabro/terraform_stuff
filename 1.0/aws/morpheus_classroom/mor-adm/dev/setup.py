@@ -74,7 +74,7 @@ for c in instance:
     try:
         pingCheck = appliance.checkAppliancePing()
         pingCount = 1
-    except:
+    except ConnectionRefusedError:
         pingCheck = str("Appliance ping not responding yet. Beginning loop.")
         print(pingCheck)
     
