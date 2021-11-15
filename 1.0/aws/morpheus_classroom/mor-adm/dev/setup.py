@@ -76,7 +76,9 @@ for c in instance:
     
     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password=admin_password, email=student_email, first_name="admin", license_key=key, access_token="")
     
+    
     ### Begin checking appliance status:
+    print("Beginning ping check for appliance %s." % (ip))
     pingCheck = appliance.checkAppliancePing()
     pingCount = 1
     
@@ -92,8 +94,8 @@ for c in instance:
             pingCheck = str("Appliance ping not responding yet. Conintuing loop.")
             print(pingCheck)
         
-        if pingCount >= 6:
-            print("Appliance is not up after 30 minutes. Please check in on its status at %s" % (ip))
+        if pingCount >= 9:
+            print("Appliance is not up after 45 minutes. Please check in on its status at %s" % (ip))
             break
         
     print("Morpheus ping responded.")
