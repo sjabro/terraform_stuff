@@ -1,4 +1,5 @@
 import json
+from logging import exception
 import requests
 import time
 import urllib3
@@ -50,13 +51,15 @@ class morphAppliance(object):
         data = response.json()
         
     def checkAppliancePing(self):
+        reply = ""
         url = str("https://%s/ping" % (self.app_ip))
         headers={'Content-Type': 'application/json',"Accept":"application/json"}
         try:
             response = requests.get(url, headers=headers, verify=False)
-        except ConnectionRefusedError:
-            print("Appliance connection refused")
-        return response.text
+            reply = response.text
+        except:
+            pass
+        return reply
     
     def checkApplianceSetupStatus(self):
         url = str("https://%s/api/ping" % (self.app_ip))
