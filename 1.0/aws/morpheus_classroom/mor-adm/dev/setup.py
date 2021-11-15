@@ -52,7 +52,10 @@ class morphAppliance(object):
     def checkAppliancePing(self):
         url = str("https://%s/ping" % (self.app_ip))
         headers={'Content-Type': 'application/json',"Accept":"application/json"}
-        response = requests.get(url, headers=headers, verify=False)
+        try:
+            response = requests.get(url, headers=headers, verify=False)
+        except ConnectionRefusedError:
+            print("Appliance connection refused")
         return response.text
     
     def checkApplianceSetupStatus(self):
@@ -70,13 +73,9 @@ for c in instance:
     
     appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password=admin_password, email=student_email, first_name="admin", license_key=key, access_token="")
     
-    ### Begin checking appliance status
-    try:
-        pingCheck = appliance.checkAppliancePing()
-        pingCount = 1
-    except ConnectionRefusedError:
-        pingCheck = str("Appliance ping not responding yet. Beginning loop.")
-        print(pingCheck)
+    ### Begin checking appliance status:
+    pingCheck = appliance.checkAppliancePing()
+    pingCount = 1
     
     while pingCheck != "MORPHEUS PING":
         print("Attempt: %s" % (pingCount))
