@@ -59,6 +59,10 @@ data "aws_ami" "ubuntu_2004_latest" {
 resource "aws_key_pair" "trainer_key_pair" {
     key_name = "jabro_ssh_pub"
     public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdzzp2PB6cDTIpK1m1S6YaeXAROsLaROMiVPucRHKS6WgaRCfVpDpK0uZtTUyXcva+zqMXtjctBKAJw/wlU9tBJkCllUyuzWwdGc0aP0Ey1XcSjq02aqhgv0sMrgPkKpuA6jBF002yAAf0b55ZfaiDkMjTmRUqLprnhaMTC6jfWgE3KwexWUVbt+9aomvYMdvogqyRdD+075peaJHh0aemQoOjJ6tIOamLvU7AzDtbmxBMLhjyzzeSg+Xn72kegNj+kpd0FuWQVidJzlKZ/iX5D6DFnZOB8MnOhK2KQ/6syhfIJZA7VgBk0Fsyoqah5LPhWjJzo7OVQvUBLZNnhi/l"
+
+    depends_on = [
+      aws_vpc.main
+    ]
 }
 
 resource "aws_network_interface" "app_nodes" {
@@ -66,6 +70,10 @@ resource "aws_network_interface" "app_nodes" {
     subnet_id = aws_subnet.public_subnets[each.key].id
 
     security_groups = [ aws_security_group.app_nodes[each.key].id]
+
+    depends_on = [
+      aws_subnet.public_subnets
+    ]
 }
 
 resource "aws_instance" "app_node" {
@@ -90,6 +98,10 @@ resource "aws_instance" "app_node" {
       "Name" = "${each.value}_morpheus-app"
     }
 
+    depends_on = [
+      aws_key_pair.trainer_key_pair
+    ]
+
     user_data = <<-EOF
    #cloud-config
    runcmd:
@@ -106,6 +118,11 @@ resource "aws_eip" "app_nodes" {
     for_each = local.student_list
 
     vpc = true
+
+    depends_on = [
+      aws_vpc.main
+    ]
+
     # instance = aws_instance.app_node[each.key].id
 }
 
@@ -115,4 +132,9 @@ resource "aws_eip_association" "app_node_interfaces" {
     network_interface_id = aws_network_interface.app_nodes[each.key].id
     instance_id = aws_instance.app_node[each.key].id
     allocation_id = aws_eip.app_nodes[each.key].id
+
+    depends_on = [
+      aws_network_interface.app_nodes,
+      aws_instance.app_node
+    ]
 }

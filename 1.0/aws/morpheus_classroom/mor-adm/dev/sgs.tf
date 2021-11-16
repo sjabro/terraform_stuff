@@ -15,6 +15,10 @@ resource "aws_security_group" "app_nodes" {
   description = "Allows communication in for Morpheus app nodes"
   vpc_id = aws_vpc.main[each.key].id
 
+  depends_on = [
+    aws_vpc.main
+  ]
+
   ingress = [ 
     {
     cidr_blocks = [ "0.0.0.0/0" ]

@@ -37,6 +37,10 @@ resource "aws_route_table" "main" {
   for_each = local.student_list
   vpc_id = aws_vpc.main[each.key].id
 
+  depends_on = [
+    aws_vpc.main
+  ]
+
   tags = {
     "Name" = "${each.value}-rtb"
   }
@@ -58,6 +62,12 @@ resource "aws_route_table_association" "public_subnets" {
 
   subnet_id = aws_subnet.public_subnets[each.key].id
   route_table_id = aws_route_table.main[each.key].id
+
+  depends_on = [
+    aws_subnet.public_subnets,
+    aws_route_table.main
+  ]
+
 }
 
 resource "aws_subnet" "public_subnets" {
