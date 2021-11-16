@@ -120,7 +120,8 @@ resource "aws_eip" "app_nodes" {
     vpc = true
 
     depends_on = [
-      aws_vpc.main
+      aws_vpc.main,
+      aws_internet_gateway.main
     ]
 
     # instance = aws_instance.app_node[each.key].id
