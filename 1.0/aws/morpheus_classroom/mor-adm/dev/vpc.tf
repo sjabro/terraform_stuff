@@ -28,9 +28,9 @@ resource "aws_internet_gateway" "main" {
     "Name" = "${each.value}_igw"
   }
 
-  depends_on = [
-    aws_vpc.main
-  ]
+  # depends_on = [
+  #   aws_vpc.main
+  # ]
 }
 
 resource "aws_route_table" "main" {
@@ -38,7 +38,8 @@ resource "aws_route_table" "main" {
   vpc_id = aws_vpc.main[each.key].id
 
   depends_on = [
-    aws_vpc.main
+    aws_vpc.main,
+    aws_internet_gateway.main
   ]
 
   tags = {
@@ -53,7 +54,8 @@ resource "aws_route" "main" {
   gateway_id = aws_internet_gateway.main[each.key].id
 
   depends_on = [
-    aws_route_table.main
+    aws_route_table.main,
+    aws_internet_gateway.main
   ]
 }
 
@@ -65,7 +67,8 @@ resource "aws_route_table_association" "public_subnets" {
 
   depends_on = [
     aws_subnet.public_subnets,
-    aws_route_table.main
+    aws_route_table.main,
+    aws_internet_gateway.main
   ]
 
 }
@@ -81,6 +84,7 @@ resource "aws_subnet" "public_subnets" {
   }
 
   depends_on = [
-    aws_vpc.main
+    aws_vpc.main,
+    aws_internet_gateway.main
   ]
 }
