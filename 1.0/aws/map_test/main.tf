@@ -28,7 +28,7 @@ variable "region" {
 
 variable "size_xlarge" {
 
-  type        = map(any)
+  type        = map(string)
 
   description = "configuration settings for implementation type: micro"
 
