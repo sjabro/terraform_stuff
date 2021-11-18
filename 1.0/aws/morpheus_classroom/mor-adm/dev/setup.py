@@ -69,7 +69,6 @@ class morphAppliance(object):
         return data["setupNeeded"]
 
 ### START SCRIPT ###
-# TODO break out of the for statement since this is running independently
 for c in instance:
     student_email = str(c['server']['name'].split('-')[0])
     ip = str(c['externalIp'])
