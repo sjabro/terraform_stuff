@@ -28,9 +28,9 @@ resource "aws_internet_gateway" "main" {
     "Name" = "${each.value}_igw"
   }
 
-  # depends_on = [
-  #   aws_vpc.main
-  # ]
+  depends_on = [
+    aws_vpc.main
+  ]
 }
 
 resource "aws_route_table" "main" {

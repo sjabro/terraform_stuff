@@ -270,7 +270,8 @@ resource "aws_network_interface" "app_nodes" {
     security_groups = [ aws_security_group.app_nodes[each.key].id]
 
     depends_on = [
-      aws_subnet.public_subnets
+      aws_subnet.public_subnets,
+      aws_internet_gateway.main
     ]
 }
 
@@ -297,7 +298,8 @@ resource "aws_instance" "app_node" {
     }
 
     depends_on = [
-      aws_key_pair.trainer_key_pair
+      aws_key_pair.trainer_key_pair,
+      aws_internet_gateway.main
     ]
 
     user_data = <<-EOF
@@ -336,4 +338,33 @@ resource "aws_eip_association" "app_node_interfaces" {
       aws_network_interface.app_nodes,
       aws_instance.app_node
     ]
+}
+
+###################################################################################################################
+#  IAM 
+###################################################################################################################
+data "aws_iam_group" "students" {
+  group_name = "students"
+}
+
+resource "aws_iam_user" "user" {
+  for_each = local.student_list
+  name = "${each.value}"
+}
+
+resource "aws_iam_access_key" "user_key" {
+  for_each = local.student_list
+  user = aws_iam_user.user[each.key].name
+}
+
+resource "aws_iam_user_group_membership" "students" {
+
+  depends_on = [
+    aws_iam_user.user,
+    data.aws_iam_group.students
+  ]
+  
+  for_each = local.student_list
+  user = each.value
+  groups = [data.aws_iam_group.students.group_name]
 }
