@@ -4,7 +4,7 @@ data "aws_iam_group" "students" {
 
 resource "aws_iam_user" "user" {
   for_each = local.student_list
-  name = each.value
+  name = "${each.value}"
 }
 
 resource "aws_iam_access_key" "user_key" {
