@@ -1,11 +1,11 @@
 import json
 import os
 
-# path = "<%=state.stateList[0].statePath%>"
-# student_list = "<%=customOptions.studentEmails%>"
+path = "<%=state.stateList[0].statePath%>"
+student_list = "<%=customOptions.studentEmails%>"
 
-path = "C:\\Repos\\terraform_stuff\\1.0\\For_B"
-student_list = "student1@no.mail,student2@no.mail,student3@no.mail,student4@no.mail,student5@no.mail,student6@no.mail,student7@no.mail,student8@no.mail,student9@no.mail,student10@no.mail,trainer1@no.mail"
+# path = "C:\\Repos\\terraform_stuff\\1.0\\For_B"
+# student_list = "student1@no.mail,student2@no.mail,student3@no.mail,student4@no.mail,student5@no.mail,student6@no.mail,student7@no.mail,student8@no.mail,student9@no.mail,student10@no.mail,trainer1@no.mail"
 
 splitList = student_list.split(',')
 
