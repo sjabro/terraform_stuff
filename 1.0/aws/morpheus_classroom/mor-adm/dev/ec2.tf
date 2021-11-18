@@ -126,6 +126,9 @@ resource "aws_eip" "app_nodes" {
       aws_internet_gateway.main
     ]
 
+    tags = {
+      "Name" = each.value
+    }
     # instance = aws_instance.app_node[each.key].id
 }
 
