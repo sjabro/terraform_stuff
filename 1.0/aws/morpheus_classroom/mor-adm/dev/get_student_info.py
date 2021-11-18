@@ -1,7 +1,7 @@
 import json
 import os
 
-path = morpheus['state']['stateList'][0]['statePath']
+state = morpheus['state']['stateList'][0]['statePath']
 student_list = morpheus['customOptions']['studentEmails']
 
 print(path)
@@ -9,9 +9,6 @@ print(path)
 # student_list = "student1@no.mail,student2@no.mail,student3@no.mail,student4@no.mail,student5@no.mail,student6@no.mail,student7@no.mail,student8@no.mail,student9@no.mail,student10@no.mail,trainer1@no.mail"
 
 splitList = student_list.split(',')
-
-os.chdir(path)
-files = os.listdir('.')
 
 class student(object):
     def __init__(self,student_email,student_instance,pubilc_ip,access_key,secret_key):
@@ -21,7 +18,7 @@ class student(object):
         self.access_key = access_key
         self.secret_key = secret_key
         
-with open('terraform.tfstate') as file:
+with open(state) as file:
     data = json.load(file)
     
 resources = data['resources']
