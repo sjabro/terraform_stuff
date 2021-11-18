@@ -127,7 +127,7 @@ resource "aws_eip" "app_nodes" {
     ]
 
     tags = {
-      "Name" = each.value
+      "Name" = "${each.value}"
     }
     # instance = aws_instance.app_node[each.key].id
 }
