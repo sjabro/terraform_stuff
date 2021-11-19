@@ -15,5 +15,5 @@ config['instance']['name'] = "newName"
 config['instance']['hostname'] = "newHostName"
 
 spec = "{ 'spec' : %s }" % (config)
-
-print(spec)
+output = json.dumps(spec, indent=4)
+print(output)
