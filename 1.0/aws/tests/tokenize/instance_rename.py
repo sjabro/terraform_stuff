@@ -1,15 +1,14 @@
 import json
 
-specString = morpheus['spec']
+config = morpheus['spec']
 
-print(specString)
-print(specString['instance']['name'])
-print(specString['instance']['hostName'])
+print(config)
+print(config['instance']['name'])
+print(config['instance']['hostName'])
 
-config = json.loads(specString)
+config['instance']['name'] = "newName"
+config['instance']['hostname'] = "newHostName"
 
-# config['instance']['name'] = "newName"
-# config['instance']['hostname'] = "newHostName"
+spec = json.dumps(config, indent=4)
 
-# spec = json.dumps(config, indent=4)
-# print(spec)
+print(spec)
