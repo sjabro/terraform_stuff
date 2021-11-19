@@ -12,7 +12,7 @@ variable "map" {
   type = map
   default = {
       map_key_1 = "map_value_1"
-      map_key_2 = "map_value_2"
+      map_key_2 = 720
   }
 }
 

@@ -1,0 +1,2 @@
+list_of_strings=["string_1","string_2","string_3"]
+map_of_any={map_key_string = "map_string", map_key_number = 720}
