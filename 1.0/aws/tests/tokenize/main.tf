@@ -25,26 +25,26 @@ output "ApplicationTagData" {
   value = local.ApplicationTagData
 }
 
-# output "app_name" {
-#   value = local.App_Name
-# }
+output "app_name" {
+  value = local.ApplicationTagData.App_Name
+}
 
-# output "business_group" {
-#   value = local.Business_Group
-# }
+output "business_group" {
+  value = local.ApplicationTagData.Business_Group
+}
 
-# output "cost_code" {
-#   value = local.Cost_Code
-# }
+output "cost_code" {
+  value = local.ApplicationTagData.Cost_Code
+}
 
-# output "business_owner" {
-#   value = local.Business_Group
-# }
+output "business_owner" {
+  value = local.ApplicationTagData.Business_Group
+}
 
-# output "app_code" {
-#   value = local.App_Code
-# }
+output "app_code" {
+  value = local.ApplicationTagData.App_Code
+}
 
-# output "app_owner" {
-#   value = local.App_Owner
-# }
+output "app_owner" {
+  value = local.ApplicationTagData.App_Owner
+}
