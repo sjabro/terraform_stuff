@@ -2,7 +2,6 @@ $ProgressPreference = 'SilentlyContinue'
 
 ### VARIABLES
 
-$available = $false
 $configJson = '<%=spec.encodeAsJson().toString()%>'
 $configJson = $configJson | ConvertFrom-Json
 
