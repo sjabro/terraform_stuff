@@ -1,13 +1,14 @@
 import json
 
 specString = "<%=spec.encodeAsJson().toString()%>"
-config = json.loads(specString)
 
-# print(configJson['instance']['name'])
-# print(configJson['instance']['hostname'])
+print(specString)
 
-config['instance']['name'] = "newName"
-config['instance']['hostname'] = "newHostName"
 
-spec = json.dumps(config, indent=4)
-print(spec)
+# config = json.loads(specString)
+
+# config['instance']['name'] = "newName"
+# config['instance']['hostname'] = "newHostName"
+
+# spec = json.dumps(config, indent=4)
+# print(spec)
