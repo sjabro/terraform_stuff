@@ -36,7 +36,6 @@ variable "secret_key" {
 variable "students" {
     type = list(string)
     description = "Comma separate list of student emails. (With quotes)"
-    default = ["student1@no.mail","student2@no.mail","student3@no.mail","student4@no.mail","student5@no.mail","student6@no.mail","student7@no.mail","student8@no.mail","student9@no.mail","student10@no.mail","trainer1@no.mail"]
 }
 
 variable "morph_version" {
