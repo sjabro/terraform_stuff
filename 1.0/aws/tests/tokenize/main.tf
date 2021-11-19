@@ -21,10 +21,13 @@ locals {
     }
 }
 
+## Nested object in locals
 output "ApplicationTagData" {
   value = local.ApplicationTagData
 }
 
+
+# Individual Vars
 output "app_name" {
   value = local.ApplicationTagData.App_Name
 }
