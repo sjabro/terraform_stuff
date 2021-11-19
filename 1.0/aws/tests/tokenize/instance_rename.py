@@ -1,6 +1,6 @@
 import json
 
-specString = "<%=spec.encodeAsJson().toString()%>"
+specString = morpheus['spec']
 
 print(specString)
 
