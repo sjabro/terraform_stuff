@@ -20,7 +20,7 @@ locals {
 }
 
 output "app_name" {
-  value = local.output_1
+  value = local.App_Name
 }
 
 output "business_group" {
