@@ -11,10 +11,9 @@ print(config)
 #     def __init__(self, json):
 #         self.json = json        
 
-# config['instance']['name'] = "newName"
-# config['instance']['hostname'] = "newHostName"
+config['instance']['name'] = "newName"
+config['instance']['hostname'] = "newHostName"
 
-# spec = morphSpec(config)
+spec = "{ 'spec' : %s }" % (config)
 
-# output = json.dumps(spec, indent=4 )
-# print(output)
+print(spec)
