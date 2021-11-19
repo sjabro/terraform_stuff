@@ -3,7 +3,8 @@ import json
 specString = morpheus['spec']
 
 print(specString)
-
+print(specString['hostName'])
+print(specString['instance'])
 
 # config = json.loads(specString)
 
