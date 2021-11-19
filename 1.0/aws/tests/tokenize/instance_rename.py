@@ -15,4 +15,5 @@ config['instance']['hostname'] = "newHostName"
 
 spec = morphSpec(config)
 
-print(spec)
+output = json.dumps(spec, indent=4 )
+print(output)
