@@ -3,10 +3,10 @@ import json
 specString = morpheus['spec']
 
 print(specString)
-print(specString['hostName'])
-print(specString['instance'])
+print(specString['instance']['name'])
+print(specString['instance']['hostName'])
 
-# config = json.loads(specString)
+config = json.loads(specString)
 
 # config['instance']['name'] = "newName"
 # config['instance']['hostname'] = "newHostName"
