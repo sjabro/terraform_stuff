@@ -2,13 +2,17 @@ import json
 
 config = morpheus['spec']
 
-print(config)
-print(config['instance']['name'])
-print(config['instance']['hostName'])
+# print(config)
+# print(config['instance']['name'])
+# print(config['instance']['hostName'])
+
+class morphSpec(object):
+    def __init__(self, json):
+        self.json = json        
 
 config['instance']['name'] = "newName"
 config['instance']['hostname'] = "newHostName"
 
-spec = json.dumps(config, indent=4)
+spec = morphSpec(config)
 
 print(spec)
