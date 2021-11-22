@@ -25,6 +25,8 @@ resource "aws_rds_cluster_parameter_group" "main" {
   }
 }
 
+## TODO Remove the creation of the morpheus user in MYSQL
+## TODO Export Aurora endpoint
 resource "aws_rds_cluster" "main" {
 
   port = 3306

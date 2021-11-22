@@ -11,6 +11,8 @@ resource "aws_network_interface" "app_nodes" {
     security_groups = [ aws_security_group.app_nodes.id, aws_security_group.nfs.id ]
 }
 
+## TODO Add single node VM
+## TODO Export IPs of single node and three node nodes
 resource "aws_instance" "app_node" {
     for_each = local.az_map
 

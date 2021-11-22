@@ -1,3 +1,6 @@
+## TODO Figure out load balancer. CLassic or ALB
+## TODO Figure out SSL cert
+
 # resource "aws_lb" "app_lb" {
 #     name = "morph-ui-lb"
 #     internal = false

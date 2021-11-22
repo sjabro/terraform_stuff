@@ -20,3 +20,5 @@ provider "aws" {
     }
   }
 }
+
+## TODO Test email change reapply

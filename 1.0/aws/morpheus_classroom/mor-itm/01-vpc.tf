@@ -2,6 +2,7 @@
 # VPC Configuration
 ################################################################################
 
+## TODO Enable DNS on the VPC
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_root_cidr
 
@@ -62,26 +63,26 @@ resource "aws_subnet" "public_subnets" {
   ]
 }
 
-resource "aws_subnet" "private_subnets" {
-  for_each = local.az_map
-  vpc_id = aws_vpc.main.id
-  availability_zone = each.value 
-  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 4, each.key + 3)
+# resource "aws_subnet" "private_subnets" {
+#   for_each = local.az_map
+#   vpc_id = aws_vpc.main.id
+#   availability_zone = each.value 
+#   cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 4, each.key + 3)
 
-    tags = {
-    "Name" = "Morpheus Private Subnet: ${each.value}"
-  }
+#     tags = {
+#     "Name" = "Morpheus Private Subnet: ${each.value}"
+#   }
 
-  depends_on = [
-    aws_vpc.main
-  ]
-}
+#   depends_on = [
+#     aws_vpc.main
+#   ]
+# }
 
 resource "aws_subnet" "database_subnets" {
   for_each = local.az_map
   vpc_id = aws_vpc.main.id
   availability_zone = each.value
-  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 4, each.key + 6)
+  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 4, each.key + 3)
 
     tags = {
     "Name" = "Morpheus Database Subnet: ${each.value}"
