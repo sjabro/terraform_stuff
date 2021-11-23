@@ -4,20 +4,71 @@ resource "aws_key_pair" "trainer_key_pair" {
     public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdzzp2PB6cDTIpK1m1S6YaeXAROsLaROMiVPucRHKS6WgaRCfVpDpK0uZtTUyXcva+zqMXtjctBKAJw/wlU9tBJkCllUyuzWwdGc0aP0Ey1XcSjq02aqhgv0sMrgPkKpuA6jBF002yAAf0b55ZfaiDkMjTmRUqLprnhaMTC6jfWgE3KwexWUVbt+9aomvYMdvogqyRdD+075peaJHh0aemQoOjJ6tIOamLvU7AzDtbmxBMLhjyzzeSg+Xn72kegNj+kpd0FuWQVidJzlKZ/iX5D6DFnZOB8MnOhK2KQ/6syhfIJZA7VgBk0Fsyoqah5LPhWjJzo7OVQvUBLZNnhi/l"
 }
 
+### SINGLE NODE
+
+## TODO Add single node VM
+## TODO Export IPs of single node and three node nodes
+resource "aws_eip" "single_node" {
+    vpc = true
+    instance = aws_instance.single_node.id
+}
+
+resource "aws_eip_association" "single_node_interface" {
+    network_interface_id = aws_network_interface.single_node.id
+    instance_id = aws_instance.single_node.id
+    allocation_id = aws_eip.single_node.id
+}
+
+resource "aws_network_interface" "single_node" {
+    subnet_id = aws_subnet.public_subnets[0].id
+    security_groups = [ aws_security_group.app_nodes.id, aws_security_group.nfs.id ]
+}
+
+resource "aws_instance" "single_node" {
+    ami = local.system_options.ami
+    instance_type = "t2.large"
+    availability_zone = "${var.region}a"
+
+        network_interface {
+        network_interface_id = aws_network_interface.single_node.id
+        device_index = 0
+    }
+
+    root_block_device {
+        volume_size = 20     
+    }
+
+    key_name = aws_key_pair.trainer_key_pair.key_name
+
+    tags = {
+      "Name" = "morph-single-node"
+    }
+
+    user_data = <<-EOF
+#!/bin/bash
+# Update OS
+${local.system_options.package_manager} update -y
+${local.system_options.package_manager} install -y ${local.system_options.nfs_tool}
+${local.system_options.package_manager} install -y ${local.system_options.mysql_client}
+${local.system_options.package_manager} install -y jq 
+
+mkdir -p /var/opt/morpheus/morpheus-ui
+EOF
+}
+
+
+### 3-NODE
 resource "aws_network_interface" "app_nodes" {
     for_each = local.az_map
     subnet_id = aws_subnet.public_subnets[each.key].id
 
     security_groups = [ aws_security_group.app_nodes.id, aws_security_group.nfs.id ]
 }
-
-## TODO Add single node VM
-## TODO Export IPs of single node and three node nodes
 resource "aws_instance" "app_node" {
     for_each = local.az_map
 
     ami = local.system_options.ami
-    instance_type = "t2.xlarge"
+    instance_type = "t2.large"
     availability_zone = each.value
 
     # subnet_id = aws_subnet.public_subnets[each.key].id

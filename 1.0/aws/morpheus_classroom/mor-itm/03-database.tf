@@ -25,7 +25,6 @@ resource "aws_rds_cluster_parameter_group" "main" {
   }
 }
 
-## TODO Remove the creation of the morpheus user in MYSQL
 ## TODO Export Aurora endpoint
 resource "aws_rds_cluster" "main" {
 
@@ -34,9 +33,8 @@ resource "aws_rds_cluster" "main" {
   engine = "aurora-mysql"
   engine_version = "5.7.mysql_aurora.2.10.1"
   availability_zones = local.azs
-  database_name = "morpheus"
-  master_username = "morpheus"
-  master_password = "M0rph3usDBP4ssw0rd!"
+  master_username = "dbadmin"
+  master_password = "M0rph3usDB4dm!n"
   backup_retention_period = 7
   preferred_backup_window = "07:00-09:00"
   vpc_security_group_ids = [aws_security_group.rds-sg.id]
