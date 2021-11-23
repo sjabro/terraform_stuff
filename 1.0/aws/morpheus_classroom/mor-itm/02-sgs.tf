@@ -1,4 +1,3 @@
-## TODO App Node SG ports to add: 4369, 25672, 5672, 5671, 9200, 9300 (Rabbit comms)
 resource "aws_security_group" "rds-sg" {
   name = "Morpheus DB SG"
   description = "RDS communications"
@@ -59,6 +58,17 @@ resource "aws_security_group" "app_nodes" {
     prefix_list_ids = []
     security_groups = []
     self = false
+    },
+    {
+    cidr_blocks = []
+    description = "Inter-node comms"
+    from_port = 0
+    to_port = 0
+    protocol = -1
+    ipv6_cidr_blocks = []
+    prefix_list_ids = []
+    security_groups = []
+    self = true
     }
    ]
   egress = [ {

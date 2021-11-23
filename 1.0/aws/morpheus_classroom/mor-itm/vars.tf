@@ -31,3 +31,8 @@ variable "os" {
       error_message = "Must be a valid OS. Valid options are ubuntu or amazon_linux."
     }
 }
+
+variable "ssh_public_key" {
+  type = string
+  description = "Public key to allow ssh access"
+}

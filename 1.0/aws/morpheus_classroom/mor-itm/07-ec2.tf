@@ -1,12 +1,10 @@
-# TODO Variablize ssh public key
 resource "aws_key_pair" "trainer_key_pair" {
-    key_name = "jabro_ssh_pub"
-    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdzzp2PB6cDTIpK1m1S6YaeXAROsLaROMiVPucRHKS6WgaRCfVpDpK0uZtTUyXcva+zqMXtjctBKAJw/wlU9tBJkCllUyuzWwdGc0aP0Ey1XcSjq02aqhgv0sMrgPkKpuA6jBF002yAAf0b55ZfaiDkMjTmRUqLprnhaMTC6jfWgE3KwexWUVbt+9aomvYMdvogqyRdD+075peaJHh0aemQoOjJ6tIOamLvU7AzDtbmxBMLhjyzzeSg+Xn72kegNj+kpd0FuWQVidJzlKZ/iX5D6DFnZOB8MnOhK2KQ/6syhfIJZA7VgBk0Fsyoqah5LPhWjJzo7OVQvUBLZNnhi/l"
+    key_name = "trainer_ssh_key"
+    public_key = var.ssh_public_key
 }
 
 ### SINGLE NODE
 
-## TODO Add single node VM
 ## TODO Export IPs of single node and three node nodes
 resource "aws_eip" "single_node" {
     vpc = true
@@ -70,9 +68,6 @@ resource "aws_instance" "app_node" {
     ami = local.system_options.ami
     instance_type = "t2.large"
     availability_zone = each.value
-
-    # subnet_id = aws_subnet.public_subnets[each.key].id
-    # security_groups = [aws_security_group.app_nodes.id]
 
     network_interface {
         network_interface_id = aws_network_interface.app_nodes[each.key].id
