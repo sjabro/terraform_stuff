@@ -20,3 +20,7 @@ variable "morph_version" {
     type = string
     default = "<%=customOptions.morpheusVersion%>"
 }
+
+variable "ssh_public_key" {
+    type = string
+}
