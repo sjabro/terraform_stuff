@@ -17,11 +17,11 @@ with open(state) as file:
     
 resources = data['resources']
 
-for i in instance['containers']:
+for i in instance['containerDetails']:
     
     internalIp = str(i('internalIp'))
-    externalIp = str(i['externalIp'])
-    name = str(i['hostname'])
+    externalIp = str(i['ip'])
+    name = str(i['server']['name'])
     labInstance = lab(pubilc_ip=externalIp,private_ip=internalIp,hostname=name,access_key="",secret_key="")
 
     for resource in resources:    
