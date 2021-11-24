@@ -35,6 +35,7 @@ for i in instance['containers']:
     print("----------------------------------------------")
     print("Hostname: " + labInstance.hostname)
     print("Instance Public IP: " + labInstance.public_ip)
+    print("Instance Private IP: " + labInstance.private_ip)
     print("Student Access Key: " + labInstance.access_key)
     print("Student Secret Key: " + labInstance.secret_key)
     print("")
