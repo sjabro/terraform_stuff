@@ -22,7 +22,7 @@ for i in instance['containers']:
     internalIp = str(i['internalIp'])
     externalIp = str(i['externalIp'])
     name = str(i['hostname'])
-    labInstance = lab(pubilc_ip=externalIp,private_ip=internalIp,hostname=name,access_key="",secret_key="")
+    labInstance = lab(public_ip=externalIp,private_ip=internalIp,hostname=name,access_key="",secret_key="")
 
     for resource in resources:    
         if resource['type'] == "aws_iam_access_key":
