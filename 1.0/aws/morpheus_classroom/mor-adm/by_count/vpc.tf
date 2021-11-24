@@ -81,7 +81,7 @@ resource "aws_subnet" "public_subnets" {
   cidr_block = var.vpc_root_cidr 
 
   tags = {
-    "Name" = "mor-adm-${var.region}-${var.count.index}"
+    "Name" = "mor-adm-${var.region}-${count.index}"
   }
 
   depends_on = [
