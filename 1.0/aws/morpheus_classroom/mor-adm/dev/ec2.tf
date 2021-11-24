@@ -56,14 +56,14 @@
 # ########################################################################################
 # # EC2 Instances
 # ########################################################################################
-# resource "aws_key_pair" "trainer_key_pair" {
-#     key_name = "trainer_ssh_key"
-#     public_key = var.ssh_public_key
+resource "aws_key_pair" "trainer_key_pair" {
+    key_name = "trainer_ssh_key"
+    public_key = var.ssh_public_key
 
-#     depends_on = [
-#       aws_vpc.main
-#     ]
-# }
+    depends_on = [
+      aws_vpc.main
+    ]
+}
 
 # resource "aws_network_interface" "app_nodes" {
 #     for_each = local.student_list
