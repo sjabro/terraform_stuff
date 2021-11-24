@@ -31,7 +31,7 @@ for i in instance['containers']:
                     labInstance.access_key = r['attributes']['id']   
                     labInstance.secret_key = r['attributes']['secret']
 
-    print("----------------------------------------------")
+    print("---------------------------------------------------------------------------------------------------------------------------------------------------")
     print("Hostname: " + labInstance.hostname)
     print("Instance Public IP: " + labInstance.public_ip)
     print("Instance Private IP: " + labInstance.private_ip)
