@@ -17,7 +17,7 @@ with open(state) as file:
     
 resources = data['resources']
 
-for i in instance['containerDetails']:
+for i in instance['containers']['containerDetails']:
     
     internalIp = str(i('internalIp'))
     externalIp = str(i['ip'])
