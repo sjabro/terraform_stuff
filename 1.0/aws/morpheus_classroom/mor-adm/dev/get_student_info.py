@@ -21,7 +21,7 @@ for i in instance['containers']:
     print(i)
     internalIp = str(i['internalIp'])
     externalIp = str(i['externalIp'])
-    name = str(i['name'])
+    name = str(i['server']['name'])
     labInstance = lab(public_ip=externalIp,private_ip=internalIp,hostname=name,access_key="",secret_key="")
 
     for resource in resources:    
