@@ -3,7 +3,7 @@ import os
 
 state = morpheus['state']['stateList'][0]['statePath']
 instance = morpheus['instance']
-print(instance['containers'])
+
 class lab(object):
     def __init__(self,hostname,public_ip,private_ip,access_key,secret_key):
         self.hostname = hostname
@@ -27,6 +27,7 @@ for i in instance['containers']:
     for resource in resources:    
         if resource['type'] == "aws_iam_access_key":
             access = resource['instances']
+            print(access)
             for r in access:
                 if name == r['attributes']['user']:
                     labInstance.access_key = r['attributes']['id']   
