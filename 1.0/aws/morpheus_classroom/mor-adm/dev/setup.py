@@ -9,7 +9,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 key=str(morpheus['results']['getMorphLicense'])
 instance = morpheus['instance']['containers']
 firstname = str("admin")
-emailid = str("sjabro@morpheusdata.com")
+emailid = str("training@morpheusdata.com")
 admin_password = str(morpheus['customOptions']['morphApplianceAdminPass'])
 
 class morphAppliance(object):
@@ -73,7 +73,7 @@ for c in instance:
     student_email = str(c['server']['name'].split('-')[0])
     ip = str(c['externalIp'])
     
-    appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password=admin_password, email=student_email, first_name="admin", license_key=key, access_token="")
+    appliance = morphAppliance(app_name="Morpheus", app_ip=ip, account_name="Morpheus", user_name="admin", password=admin_password, email=emailid, first_name="admin", license_key=key, access_token="")
     
     
     ### Begin checking appliance status:

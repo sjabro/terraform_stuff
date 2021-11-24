@@ -16,7 +16,7 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_root_cidr
 
   tags = {
-    "Name" = "${each.value}_vpc"
+    "Name" = "${each.value}"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main[each.key].id
 
   tags = {
-    "Name" = "${each.value}_igw"
+    "Name" = "${each.value}"
   }
 
   depends_on = [
@@ -43,7 +43,7 @@ resource "aws_route_table" "main" {
   ]
 
   tags = {
-    "Name" = "${each.value}_rtb"
+    "Name" = "${each.value}"
   }
 }
 
@@ -80,7 +80,7 @@ resource "aws_subnet" "public_subnets" {
   cidr_block = var.vpc_root_cidr 
 
   tags = {
-    "Name" = "${each.value}_subnet"
+    "Name" = "${each.value}"
   }
 
   depends_on = [

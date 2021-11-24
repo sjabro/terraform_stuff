@@ -54,6 +54,6 @@ resource "aws_security_group" "app_nodes" {
     self = false
   } ]
   tags = {
-    "Name" = "${each.value}-sg"
+    "Name" = "${each.value}"
   }
 }
