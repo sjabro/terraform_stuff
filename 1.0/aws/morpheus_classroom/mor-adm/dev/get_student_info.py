@@ -3,7 +3,7 @@ import os
 
 state = morpheus['state']['stateList'][0]['statePath']
 instance = morpheus['instance']
-print(instance)
+print(instance['containers'])
 class lab(object):
     def __init__(self,hostname,public_ip,private_ip,access_key,secret_key):
         self.hostname = hostname
