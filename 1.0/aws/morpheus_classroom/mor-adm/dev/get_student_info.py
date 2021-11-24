@@ -27,7 +27,8 @@ for i in instance['containers']:
     for resource in resources:    
         if resource['type'] == "aws_iam_access_key":
             access = resource['instances']
-            print(access)
+            print(access['attributes'])
+            print(name)
             for r in access:
                 if name == r['attributes']['user']:
                     labInstance.access_key = r['attributes']['id']   
