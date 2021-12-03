@@ -14,8 +14,11 @@ provider "aws" {
 ### PRIMITIVE VARS
 ##################################
 
-# Works with defaults in tf.
-# Works with cloud profile.
+### All statements of working ability refer to Morpheus version 5.4.0
+
+# Works with defaults in tf
+# Works via user entry in provisioning wizard
+# Works with values in cloud profile
 variable "string" {
   type = string
 }
@@ -24,6 +27,9 @@ output "string" {
   value = var.string
 }
 
+# Works with defaults in tf
+# Works via user entry in provisioning wizard
+# Works with values in cloud profile
 variable "number" {
   type = number
 }
@@ -32,6 +38,9 @@ output "number" {
   value = var.number
 }
 
+# Works with defaults in tf
+# Works via user entry in provisioning wizard
+# Works with values in cloud profile
 variable "bool" {
   type = bool
 }
@@ -44,9 +53,11 @@ output "bool" {
 ### SINGLE LAYER COMPLEX VARS
 #####################################
 
+# Works with defaults in tf
+
 variable "list_of_strings" {
   type = list(string)
-  default = [ "string_1","string_2","string_3" ]
+  # default = [ "string_1","string_2","string_3" ]
 }
 
 output "list_of_strings" {
