@@ -66,13 +66,13 @@ output "map_of_strings" {
   value = var.map_of_strings
 }
 
-variable "map_of_any" {
-  type = map(any)
-  default = {
-    "key_1" = "value_1"
-    "key_2" = "12" 
-  }
-}
+# variable "map_of_any" {
+#   type = map(any)
+#   default = {
+#     "key_1" = "value_1"
+#     "key_2" = "12" 
+#   }
+# }
 
 output "map_of_any" {
   value = var.map_of_any
