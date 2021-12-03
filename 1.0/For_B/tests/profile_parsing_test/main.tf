@@ -14,6 +14,8 @@ provider "aws" {
 ### PRIMITIVE VARS
 ##################################
 
+# Works with defaults in tf.
+# Works with cloud profile.
 variable "string" {
   type = string
   default = "This is a string"
@@ -66,18 +68,6 @@ output "map_of_strings" {
   value = var.map_of_strings
 }
 
-# variable "map_of_any" {
-#   type = map(any)
-#   default = {
-#     "key_1" = "value_1"
-#     "key_2" = "12" 
-#   }
-# }
-
-output "map_of_any" {
-  value = var.map_of_any
-}
-
 variable "map_of_numbers" {
   type = map(number)
 
@@ -104,6 +94,9 @@ output "map_of_bool" {
   value = var.map_of_bool
 }
 
+#####################################
+### MULTI-LAYER COMPLEX VARS
+#####################################
 variable "map_of_list_of_strings" {
   type = map(list(string))
 
