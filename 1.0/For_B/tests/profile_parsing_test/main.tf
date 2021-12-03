@@ -70,7 +70,7 @@ variable "map_of_any" {
   type = map(any)
   default = {
     "key_1" = "value_1"
-    "key_2" = 12 
+    "key_2" = "12" 
   }
 }
 
