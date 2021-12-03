@@ -1,4 +1,4 @@
-terraform {
+ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
@@ -54,7 +54,8 @@ output "bool" {
 #####################################
 
 # Works with defaults in tf
-
+# Works via user entry in provisioning wizard
+# TODO Does NOT work via cloud profile. Looks to break the parsing.
 variable "list_of_strings" {
   type = list(string)
   # default = [ "string_1","string_2","string_3" ]
@@ -64,12 +65,14 @@ output "list_of_strings" {
   value = var.list_of_strings
 }
 
+# Works with defaults in tf
+
 variable "map_of_strings" {
   type = map(string)
-  default = {
-    "string_1" = "This is string 1"
-    "string_2" = "This is string 2"
-  }
+#   default = {
+#     "string_1" = "This is string 1"
+#     "string_2" = "This is string 2"
+#   }
 }
 
 output "map_of_strings" {
