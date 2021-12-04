@@ -117,7 +117,7 @@ output "map_of_numbers" {
   value = var.map_of_numbers
 }
 
-# Works with defaults in tf
+# TODO Does NOT work via terraform defaults. Only first element created. 
 # TODO We need to get the syntax to work similarly across the input methods. 
 # Reccomendation is to go with the Hashicorp requirement for single line maps: "Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps."
 
@@ -125,7 +125,7 @@ output "map_of_numbers" {
 #       - Meaning a comma must exist between each element in the map.
 #       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
 #       - EXAMPLE: This does not: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
-# Does NOT work via cloud profile. Only deploys first element in the map regardless of syntax
+# TODO Does NOT work via cloud profile. Only deploys first element in the map regardless of syntax
 variable "map_of_bool" {
   type = map(bool)
 
@@ -142,6 +142,16 @@ output "map_of_bool" {
 #####################################
 ### MULTI-LAYER COMPLEX VARS
 #####################################
+
+# Works with defaults in tf
+# TODO We need to get the syntax to work similarly across the input methods. 
+# Reccomendation is to go with the Hashicorp requirement for single line maps: "Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps."
+
+# Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
+#       - Meaning a comma must exist between each element in the map.
+#       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
+#       - EXAMPLE: This does not: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+# TODO Does NOT work via cloud code regardless of syntax. Probably tied to the parsing error for list os string
 variable "map_of_list_of_strings" {
   type = map(list(string))
 
