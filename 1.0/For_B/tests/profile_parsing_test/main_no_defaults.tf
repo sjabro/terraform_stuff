@@ -58,10 +58,14 @@ output "bool" {
 
 # Works with defaults in tf
 # Works via user entry in provisioning wizard
-# TODO Does NOT work via cloud profile. Looks to break the parsing.
+# TODO We need to get the syntax to work similarly across the input methods. 
+# Works via cloud profile. CAVEAT: Must be entered in single line syntax WITHOUT the comma or only the first element is deployed
+#       - This is the exact opposite of the user input. 
+#       - EXAMPLE: This works: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+#       - EXAMPLE: This does not: {"string_1" = "This is string 1","string_2" = "This is string 2"}   
 variable "list_of_strings" {
   type = list(string)
-  default = [ "string_1","string_2","string_3" ]
+  # default = [ "string_1","string_2","string_3" ]
 }
 
 output "list_of_strings" {
@@ -69,7 +73,7 @@ output "list_of_strings" {
 }
 
 # Works with defaults in tf
-# TODO We need to get the syntax to work similarly across the inpur methods. 
+# TODO We need to get the syntax to work similarly across the input methods. 
 # Reccomendation is to go with the Hashicorp requirement for single line maps: "Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps."
 
 # Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
@@ -92,6 +96,18 @@ output "map_of_strings" {
   value = var.map_of_strings
 }
 
+# Works with defaults in tf
+# TODO We need to get the syntax to work similarly across the input methods. 
+# Reccomendation is to go with the Hashicorp requirement for single line maps: "Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps."
+
+# Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
+#       - Meaning a comma must exist between each element in the map.
+#       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
+#       - EXAMPLE: This does not: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+# Works via cloud profile. CAVEAT: Must be entered in single line syntax WITHOUT the comma or only the first element is deployed
+#       - This is the exact opposite of the user input. 
+#       - EXAMPLE: This works: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+#       - EXAMPLE: This does not: {"string_1" = "This is string 1","string_2" = "This is string 2"}
 variable "map_of_numbers" {
   type = map(number)
 
@@ -108,10 +124,10 @@ output "map_of_numbers" {
 variable "map_of_bool" {
   type = map(bool)
 
-  default = {
-    "True" = true
-    "False" = false
-  }
+#   default = {
+#     "True" = true
+#     "False" = false
+#   }
 }
 
 output "map_of_bool" {
