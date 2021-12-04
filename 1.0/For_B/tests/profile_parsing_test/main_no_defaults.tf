@@ -69,7 +69,7 @@ output "list_of_strings" {
 }
 
 # Works with defaults in tf
-# TODO We need to get the syntax to work similarly across the inpur methods. 
+# TODO We need to get the syntax to work similarly across the input methods. 
 # Reccomendation is to go with the Hashicorp requirement for single line maps: "Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps."
 
 # Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
@@ -92,6 +92,10 @@ output "map_of_strings" {
   value = var.map_of_strings
 }
 
+# Works with defaults in tf
+# TODO We need to get the syntax to work similarly across the input methods. 
+# Reccomendation is to go with the Hashicorp requirement for single line maps: "Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps."
+
 # Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
 #       - Meaning a comma must exist between each element in the map.
 #       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
@@ -113,6 +117,15 @@ output "map_of_numbers" {
   value = var.map_of_numbers
 }
 
+# Works with defaults in tf
+# TODO We need to get the syntax to work similarly across the input methods. 
+# Reccomendation is to go with the Hashicorp requirement for single line maps: "Commas are required between key/value pairs for single line maps. A newline between key/value pairs is sufficient in multi-line maps."
+
+# Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
+#       - Meaning a comma must exist between each element in the map.
+#       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
+#       - EXAMPLE: This does not: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+# Does NOT work via cloud profile. Only deploys first element in the map regardless of syntax
 variable "map_of_bool" {
   type = map(bool)
 
@@ -132,10 +145,10 @@ output "map_of_bool" {
 variable "map_of_list_of_strings" {
   type = map(list(string))
 
-  default = {
-    "list1" : [ "string1-1","string1-2","string1-3" ]
-    "list2" : [ "string2-1","string2-2","string2-3"]
-  }
+#   default = {
+#     "list1" : [ "string1-1","string1-2","string1-3" ]
+#     "list2" : [ "string2-1","string2-2","string2-3"]
+#   }
 }
 
 output "map_of_list_of_string" {
