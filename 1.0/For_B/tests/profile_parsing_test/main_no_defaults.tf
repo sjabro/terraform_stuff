@@ -21,11 +21,11 @@ provider "aws" {
 # Works with values in cloud profile
 variable "string" {
   type = string
+  default = "This is a string"
 }
 
 output "string" {
   value = var.string
-  default = "This is a string"
 }
 
 # Works with defaults in tf
