@@ -57,7 +57,10 @@ output "bool" {
 #####################################
 
 # Works with defaults in tf
-# Works via user entry in provisioning wizard
+# Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
+#       - Meaning a comma must exist between each element in the map.
+#       - EXAMPLE: This works: [ "string_1","string_2","string_3" ]
+#       - EXAMPLE: This does not: [ "string_1" "string_2" "string_3" ]
 # TODO Does NOT work via cloud profile. Looks to break the parsing.
 variable "list_of_strings" {
   type = list(string)
@@ -98,12 +101,12 @@ output "map_of_strings" {
 
 # Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
 #       - Meaning a comma must exist between each element in the map.
-#       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
-#       - EXAMPLE: This does not: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+#       - EXAMPLE: This works: {"number_1" = 1,"number_2" = 2}
+#       - EXAMPLE: This does not: {"number_1" = 1 "number_2" = 2}
 # Works via cloud profile. CAVEAT: Must be entered in single line syntax WITHOUT the comma or only the first element is deployed
 #       - This is the exact opposite of the user input. 
-#       - EXAMPLE: This works: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
-#       - EXAMPLE: This does not: {"string_1" = "This is string 1","string_2" = "This is string 2"}
+#       - EXAMPLE: This works: {"number_1" = 1 "number_2" = 2}
+#       - EXAMPLE: This does not: {"number_1" = 1,"number_2" = 2}
 variable "map_of_numbers" {
   type = map(number)
 
@@ -123,8 +126,8 @@ output "map_of_numbers" {
 
 # Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
 #       - Meaning a comma must exist between each element in the map.
-#       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
-#       - EXAMPLE: This does not: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+#       - EXAMPLE: This works: {"True" = true, "False" = false}
+#       - EXAMPLE: This does not: {"True" = true "False" = false}
 # TODO Does NOT work via cloud profile. Only deploys first element in the map regardless of syntax
 variable "map_of_bool" {
   type = map(bool)
@@ -149,8 +152,8 @@ output "map_of_bool" {
 
 # Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
 #       - Meaning a comma must exist between each element in the map.
-#       - EXAMPLE: This works: {"string_1" = "This is string 1","string_2" = "This is string 2"}
-#       - EXAMPLE: This does not: {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+#       - EXAMPLE: This works: {"list1" : [ "string1-1","string1-2","string1-3" ],"list2" : [ "string2-1","string2-2","string2-3"]}
+#       - EXAMPLE: This does not: {"list1" : [ "string1-1","string1-2","string1-3" ] "list2" : [ "string2-1","string2-2","string2-3"]}
 # TODO Does NOT work via cloud code regardless of syntax. Probably tied to the parsing error for list os string
 variable "map_of_list_of_strings" {
   type = map(list(string))
