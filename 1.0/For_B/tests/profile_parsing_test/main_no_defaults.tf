@@ -25,6 +25,7 @@ variable "string" {
 
 output "string" {
   value = var.string
+  default = "This is a string"
 }
 
 # Works with defaults in tf
@@ -32,6 +33,7 @@ output "string" {
 # Works with values in cloud profile
 variable "number" {
   type = number
+  default = 42
 }
 
 output "number" {
@@ -43,6 +45,7 @@ output "number" {
 # Works with values in cloud profile
 variable "bool" {
   type = bool
+  default = true
 }
 
 output "bool" {
@@ -58,7 +61,7 @@ output "bool" {
 # TODO Does NOT work via cloud profile. Looks to break the parsing.
 variable "list_of_strings" {
   type = list(string)
-  # default = [ "string_1","string_2","string_3" ]
+  default = [ "string_1","string_2","string_3" ]
 }
 
 output "list_of_strings" {
@@ -66,11 +69,12 @@ output "list_of_strings" {
 }
 
 # Works with defaults in tf
+# Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. Meaning a comma must exist between each element in the map.
 
 variable "map_of_strings" {
   type = map(string)
 #   default = {
-#     "string_1" = "This is string 1"
+#     "string_1" = "This is string 1",
 #     "string_2" = "This is string 2"
 #   }
 }
