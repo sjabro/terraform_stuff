@@ -1,2 +1,9 @@
-list_of_strings=["string_1","string_2","string_3"]
-map_of_any={map_key_string = "map_string", map_key_number = 720}
+## Profile Test Vars
+string = "This is a string"
+number = 42
+bool = true
+# list_of_strings = [ "string_1","string_2","string_3" ]
+map_of_strings = {"string_1" = "This is string 1" "string_2" = "This is string 2"}
+map_of_numbers = {"number_1" = 1 "number_2" = 2}
+# map_of_bool = {"True" = true "False" = false}
+# map_of_list_of_strings = {"list1" : [ "string1-1","string1-2","string1-3" ] "list2" : [ "string2-1","string2-2","string2-3"]}
