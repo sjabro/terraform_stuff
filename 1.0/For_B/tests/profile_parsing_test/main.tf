@@ -132,10 +132,10 @@ output "map_of_numbers" {
 variable "map_of_bool" {
   type = map(bool)
 
-  default = {
-    "True" = true
-    "False" = false
-  }
+  # default = {
+  #   "True" = true
+  #   "False" = false
+  # }
 }
 
 output "map_of_bool" {
