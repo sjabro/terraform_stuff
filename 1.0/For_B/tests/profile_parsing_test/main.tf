@@ -132,10 +132,10 @@ output "map_of_numbers" {
 variable "map_of_bool" {
   type = map(bool)
 
-  # default = {
-  #   "True" = true
-  #   "False" = false
-  # }
+  default = {
+    "True" = true
+    "False" = false
+  }
 }
 
 output "map_of_bool" {
@@ -158,10 +158,10 @@ output "map_of_bool" {
 variable "map_of_list_of_strings" {
   type = map(list(string))
 
-  # default = {
-  #   "list1" : [ "string1-1","string1-2","string1-3" ]
-  #   "list2" : [ "string2-1","string2-2","string2-3"]
-  # }
+  default = {
+    "list1" : [ "string1-1","string1-2","string1-3" ]
+    "list2" : [ "string2-1","string2-2","string2-3"]
+  }
 }
 
 output "map_of_list_of_string" {
