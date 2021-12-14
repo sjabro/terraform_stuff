@@ -153,15 +153,15 @@ output "map_of_bool" {
 # Works via user entry in provisioning wizard. CAVEAT: User must input utilizing terraform required single line syntax. 
 #       - Meaning a comma must exist between each element in the map.
 #       - EXAMPLE: This works: {"list1" : [ "string1-1","string1-2","string1-3" ],"list2" : [ "string2-1","string2-2","string2-3"]}
-#       - EXAMPLE: This does not: {"list1" : [ "string1-1","string1-2","string1-3" ] "list2" : [ "string2-1","string2-2","string2-3"]}
+#       - EXAMPLE: This does not: {"list1" : [ "string1-1" "string1-2" "string1-3" ] "list2" : [ "string2-1" "string2-2" "string2-3"]}
 # TODO Does NOT work via cloud code regardless of syntax. Probably tied to the parsing error for list os string
 variable "map_of_list_of_strings" {
   type = map(list(string))
 
-  default = {
-    "list1" : [ "string1-1","string1-2","string1-3" ]
-    "list2" : [ "string2-1","string2-2","string2-3"]
-  }
+  # default = {
+  #   "list1" : [ "string1-1","string1-2","string1-3" ]
+  #   "list2" : [ "string2-1","string2-2","string2-3"]
+  # }
 }
 
 output "map_of_list_of_string" {
