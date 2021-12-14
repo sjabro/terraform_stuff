@@ -85,10 +85,10 @@ output "list_of_strings" {
 #       - EXAMPLE: This does not: {"string_1" = "This is string 1","string_2" = "This is string 2"}    
 variable "map_of_strings" {
   type = map(string)
-   default = {
-     "string_1" = "This is string 1"
-     "string_2" = "This is string 2"
-   }
+#  default = {
+#    "string_1" = "This is string 1"
+#    "string_2" = "This is string 2"
+#  }
 }
 
 output "map_of_strings" {
@@ -132,10 +132,10 @@ output "map_of_numbers" {
 variable "map_of_bool" {
   type = map(bool)
 
-  default = {
-    "True" = true
-    "False" = false
-  }
+  # default = {
+  #   "True" = true
+  #   "False" = false
+  # }
 }
 
 output "map_of_bool" {
