@@ -64,7 +64,7 @@ output "bool" {
 # TODO Does NOT work via cloud profile. Looks to break the parsing.
 variable "list_of_strings" {
   type = list(string)
-  default = [ "string_1","string_2","string_3" ]
+#  default = [ "string_1","string_2","string_3" ]
 }
 
 output "list_of_strings" {
@@ -158,10 +158,10 @@ output "map_of_bool" {
 variable "map_of_list_of_strings" {
   type = map(list(string))
 
-#   default = {
-#     "list1" : [ "string1-1","string1-2","string1-3" ]
-#     "list2" : [ "string2-1","string2-2","string2-3"]
-#   }
+  default = {
+    "list1" : [ "string1-1","string1-2","string1-3" ]
+    "list2" : [ "string2-1","string2-2","string2-3"]
+  }
 }
 
 output "map_of_list_of_string" {
