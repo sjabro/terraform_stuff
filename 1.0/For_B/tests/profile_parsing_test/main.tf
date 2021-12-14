@@ -64,7 +64,7 @@ output "bool" {
 # TODO Does NOT work via cloud profile. Looks to break the parsing.
 variable "list_of_strings" {
   type = list(string)
-  default = [ "string_1","string_2","string_3" ]
+#  default = [ "string_1","string_2","string_3" ]
 }
 
 output "list_of_strings" {
