@@ -24,6 +24,11 @@ resource "aws_lb" "lb" {
     internal = false
     load_balancer_type = "network"
     subnets = [aws_subnet.public_subnets[0].id,aws_subnet.public_subnets[1].id,aws_subnet.public_subnets[2].id]
+
+    depends_on = [
+        aws_vpc.main,
+        aws_internet_gateway.main
+  ]
 }
 
 resource "aws_lb_listener" "https" {
