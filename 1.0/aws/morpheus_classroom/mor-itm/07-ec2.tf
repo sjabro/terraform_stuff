@@ -24,7 +24,7 @@ resource "aws_network_interface" "single_node" {
 
 resource "aws_instance" "single_node" {
     ami = local.system_options.ami
-    instance_type = "t2.large"
+    instance_type = "m4.xlarge"
     availability_zone = "${var.region}a"
 
         network_interface {
@@ -66,7 +66,7 @@ resource "aws_instance" "app_node" {
     for_each = local.az_map
 
     ami = local.system_options.ami
-    instance_type = "t2.large"
+    instance_type = "m4.xlarge"
     availability_zone = each.value
 
     network_interface {
