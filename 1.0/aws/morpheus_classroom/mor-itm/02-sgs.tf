@@ -9,10 +9,10 @@ resource "aws_security_group" "rds-sg" {
     from_port = 3306
     to_port = 3306
     protocol = "tcp"
-    ipv6_cidr_blocks = []
-    prefix_list_ids = []
-    security_groups = []
-    self = false
+    # ipv6_cidr_blocks = []
+    # prefix_list_ids = []
+    # security_groups = []
+    # self = false
   } ]
   egress = [ {
     cidr_blocks = [ "0.0.0.0/0" ]
@@ -20,10 +20,10 @@ resource "aws_security_group" "rds-sg" {
     from_port = 0
     to_port = 0
     protocol = "-1"
-    ipv6_cidr_blocks = []
-    prefix_list_ids = []
-    security_groups = []
-    self = false
+    # ipv6_cidr_blocks = []
+    # prefix_list_ids = []
+    # security_groups = []
+    # self = false
   } ]
 
   tags = {
