@@ -50,6 +50,17 @@ resource "aws_security_group" "app_nodes" {
     },
     {
     cidr_blocks = [ "0.0.0.0/0" ]
+    description = "Allow HTTP in"
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    ipv6_cidr_blocks = []
+    prefix_list_ids = []
+    security_groups = []
+    self = false
+    },
+    {
+    cidr_blocks = [ "0.0.0.0/0" ]
     description = "Allow SSH in"
     from_port = 22
     to_port = 22
@@ -60,7 +71,7 @@ resource "aws_security_group" "app_nodes" {
     self = false
     },
     {
-    cidr_blocks = []
+    cidr_blocks = [aws_vpc.main.cidr_block ]
     description = "Inter-node comms"
     from_port = 0
     to_port = 0
